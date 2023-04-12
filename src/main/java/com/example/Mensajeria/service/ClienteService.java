@@ -1,8 +1,9 @@
-package com.example.Mensajeria.Service;
+package com.example.Mensajeria.service;
 
 import com.example.Mensajeria.dto.ClienteDTO;
 import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.Cliente;
+import com.example.Mensajeria.model.Empleado;
 import com.example.Mensajeria.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ClienteService {
     }
 
     public boolean validarCliente(Cliente cliente) {
-        if (cliente.getCedula() == null || !cliente.getCedula().toString().matches("\\d+")) {
+        if (cliente.getCedula() == null) {
             // La cédula no es numérica o es nula
             return false;
         }
@@ -69,7 +70,7 @@ public class ClienteService {
         return this.clienteRepository.findAll();
     }
 
-    public Cliente getClienteByCedula(Long cedula) {
+    public Optional<Cliente> getClienteByCedula(Long cedula) {
         return clienteRepository.getByCedula(cedula);
     }
 
@@ -90,8 +91,14 @@ public class ClienteService {
     }
 
 
-    public void deleteCliente(Long id) {
-        clienteRepository.deleteById(id);
+    public String deleteCliente(Long cedula) {
+        Optional<Cliente> cliente = clienteRepository.findByCedula(cedula);
+        if (cliente.isPresent()) {
+            clienteRepository.deleteByCedula(cedula);
+        } else {
+            throw new ApiRequestException("No se encontró ningun empleado con la cédula: " + cedula);
+        }
+        return "Eliminado";
     }
 
 }

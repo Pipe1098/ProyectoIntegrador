@@ -1,6 +1,5 @@
 package com.example.Mensajeria.repository;
 
-import com.example.Mensajeria.model.Envio;
 import com.example.Mensajeria.model.Paquete;
 import org.springframework.data.jpa.repository.JpaRepository;
 

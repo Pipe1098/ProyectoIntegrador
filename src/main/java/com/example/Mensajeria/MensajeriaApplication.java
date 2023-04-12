@@ -1,4 +1,4 @@
-package com.example.usuarios;
+package com.example.Mensajeria;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,13 +1,18 @@
-package com.example.Mensajeria.Service;
+package com.example.Mensajeria.service;
 
 import com.example.Mensajeria.dto.EmpleadoDTO;
+import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.Empleado;
 import com.example.Mensajeria.repository.EmpleadoRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class EmpleadoService {
 
     private EmpleadoRepository empleadoRepository;
@@ -31,11 +36,11 @@ public class EmpleadoService {
     }
 
     public EmpleadoDTO obtenerEmpleadoPorCedula(Long cedula) {
-        Empleado empleado = empleadoRepository.findByCedula(cedula);
+        Optional<Empleado> empleado = empleadoRepository.findByCedula(cedula);
         if (empleado == null) {
             return null;
         }
-        EmpleadoDTO empleadoDTO = convertirEmpleadoAEmpleadoDTO(empleado);
+        EmpleadoDTO empleadoDTO = convertirEmpleadoAEmpleadoDTO(empleado.get());
         return empleadoDTO;
     }
 
@@ -47,26 +52,33 @@ public class EmpleadoService {
 
     public EmpleadoDTO actualizar(Long cedula, EmpleadoDTO empleadoDtoActualizado) {
         // Buscamos al empleado por su cédula
-        Empleado empleadoExistente = empleadoRepository.findByCedula(cedula);
-        if (empleadoExistente == null) {
+        Optional<Empleado> empleadoExistente = empleadoRepository.findByCedula(cedula);
+        if (empleadoExistente.isEmpty()) {
             throw new IllegalArgumentException("No se encontró ningún empleado con la cédula proporcionada");
         }
         // Actualizamos los datos del empleado existente con los datos del DTO actualizado
-        empleadoExistente.setApellido(empleadoDtoActualizado.getApellido());
-        empleadoExistente.setNombre(empleadoDtoActualizado.getNombre());
-        empleadoExistente.setCorreo(empleadoDtoActualizado.getCorreoElectronico());
-        empleadoExistente.setCelular(empleadoDtoActualizado.getCelular());
-        empleadoExistente.setTipoEmpleado(empleadoDtoActualizado.getTipoEmpleado());
-        empleadoExistente.setAntigueadadEnEmpresa(empleadoDtoActualizado.getAntiguedadEnEmpresa());
+        Empleado empleadoExistente1=empleadoExistente.get();
+        empleadoExistente1.setApellido(empleadoDtoActualizado.getApellido());
+        empleadoExistente1.setNombre(empleadoDtoActualizado.getNombre());
+        empleadoExistente1.setCorreo(empleadoDtoActualizado.getCorreoElectronico());
+        empleadoExistente1.setCelular(empleadoDtoActualizado.getCelular());
+        empleadoExistente1.setTipoEmpleado(empleadoDtoActualizado.getTipoEmpleado());
+        empleadoExistente1.setAntigueadadEnEmpresa(empleadoDtoActualizado.getAntiguedadEnEmpresa());
         // Guardamos los cambios en la base de datos
-        empleadoRepository.save(empleadoExistente);
+        empleadoRepository.save(empleadoExistente1);
         // Retornamos el DTO actualizado
-        return modelMapper.map(empleadoExistente, EmpleadoDTO.class);
+        return modelMapper.map(empleadoDtoActualizado, EmpleadoDTO.class);
     }
 
 
-    public void eliminarEmpleadoPorCedula(Long cedula) {
-        empleadoRepository.deleteById(cedula);
+    public EmpleadoDTO eliminarEmpleadoPorCedula(Long cedula) {
+        Optional<Empleado> empleado = empleadoRepository.findByCedula(cedula);
+        if (empleado == null) {
+            return null;
+        }
+        empleadoRepository.deleteByCedula(cedula);
+        EmpleadoDTO empleadoDTO = convertirEmpleadoAEmpleadoDTO(empleado.get());
+        return empleadoDTO;
     }
 
     private EmpleadoDTO convertirEmpleadoAEmpleadoDTO(Empleado empleado) {
@@ -80,22 +92,6 @@ public class EmpleadoService {
                 empleado.getAntigueadadEnEmpresa()
         );
         return empleadoDTO;
-    }
-
-    private Empleado convertirEmpleadoDTOAEmpleado(EmpleadoDTO empleadoDTO) {
-        Empleado empleado = new Empleado(
-                empleadoDTO.getNombre(),
-                empleadoDTO.getApellido(),
-                empleadoDTO.getCelular(),
-                "empleadoDTO.getCorreo()",
-                "empleadoDTO.getDireccion()",
-                "empleadoDTO.getCiudad()",
-                empleadoDTO.getCedula(),
-                1,
-                "empleadoDTO.getRh()",
-                empleadoDTO.getTipoEmpleado()
-        );
-        return empleado;
     }
 }
 

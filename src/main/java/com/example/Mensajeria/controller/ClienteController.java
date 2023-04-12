@@ -1,6 +1,6 @@
-package com.example.Mensajeria.Controller;
+package com.example.Mensajeria.controller;
 
-import com.example.Mensajeria.Service.ClienteService;
+import com.example.Mensajeria.service.ClienteService;
 import com.example.Mensajeria.dto.ClienteDTO;
 import com.example.Mensajeria.model.Cliente;
 import org.modelmapper.ModelMapper;
@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,11 +34,12 @@ public class ClienteController {
 
     @GetMapping("cliente/{cedula}")
     public ResponseEntity<ClienteDTO> getClienteByCedula(@PathVariable Long cedula) {
-        Cliente cliente = clienteService.getClienteByCedula(cedula);
-        if (cliente == null) {
+        Optional<Cliente> cliente = clienteService.getClienteByCedula(cedula);
+        Cliente cliente1=cliente.get();
+        if (cliente1 == null) {
             return ResponseEntity.notFound().build();
         }
-        ClienteDTO clienteDTO = modelMapper.map(cliente, ClienteDTO.class);
+        ClienteDTO clienteDTO = modelMapper.map(cliente1, ClienteDTO.class);
         return ResponseEntity.ok(clienteDTO);
     }
 
@@ -49,19 +51,18 @@ public class ClienteController {
 
     @PutMapping("cliente/{cedula}")
     public ResponseEntity<ClienteDTO> updateCliente(@PathVariable Long cedula, @RequestBody ClienteDTO clienteDTO) {
-        Cliente cliente = clienteService.getClienteByCedula(cedula);
-        if (cliente == null) {
+        Optional<Cliente> cliente = clienteService.getClienteByCedula(cedula);
+        if (cliente.get() == null) {
             return ResponseEntity.notFound().build();
         }
-        clienteService.updateCliente(cedula,clienteDTO );
-        ClienteDTO updatedClienteDTO = modelMapper.map(cliente, ClienteDTO.class);
+        ClienteDTO updatedClienteDTO =clienteService.updateCliente(cedula,clienteDTO );
         return ResponseEntity.ok(updatedClienteDTO);
     }
 
     @DeleteMapping("cliente/{cedula}")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long cedula) {
-        Cliente cliente = clienteService.getClienteByCedula(cedula);
-        if (cliente == null) {
+        Optional<Cliente> cliente = clienteService.getClienteByCedula(cedula);
+        if (cliente.get() == null) {
             return ResponseEntity.notFound().build();
         }
         clienteService.deleteCliente(cedula);

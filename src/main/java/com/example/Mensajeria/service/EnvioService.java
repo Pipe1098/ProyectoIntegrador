@@ -1,4 +1,4 @@
-package com.example.Mensajeria.Service;
+package com.example.Mensajeria.service;
 import com.example.Mensajeria.dto.EnvioDTO;
 import com.example.Mensajeria.model.Envio;
 import com.example.Mensajeria.model.Paquete;

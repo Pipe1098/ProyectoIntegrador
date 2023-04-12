@@ -1,14 +1,33 @@
 package com.example.Mensajeria.model;
-import com.example.Mensajeria.model.Usuario;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "clientes")
 public class Cliente extends Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
+    private String nombre;
+
+    @Column(nullable = false)
+   private String apellido;
+
+    @Column(nullable = false, unique = true)
+   private Long cedula;
+
+    @Column(nullable = false)
+   private String celular;
+
+    @Column(nullable = false, unique = true)
+   private String correo;
+
+    @Column(nullable = false)
+   private String direccion;
+
+    @Column(nullable = false)
+   private String ciudad;
     @Column(nullable = false)
     private String direccionEnvio;
 
@@ -34,4 +53,43 @@ public class Cliente extends Usuario {
         this.direccionEnvio = direccionEnvio;
     }
 
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    public String getNombre() {
+        return super.getNombre();
+    }
+
+    @Override
+    public String getApellido() {
+        return super.getApellido();
+    }
+
+    @Override
+    public String getCelular() {
+        return super.getCelular();
+    }
+
+    @Override
+    public String getCorreo() {
+        return super.getCorreo();
+    }
+
+    @Override
+    public String getDireccion() {
+        return super.getDireccion();
+    }
+
+    @Override
+    public String getCiudad() {
+        return super.getCiudad();
+    }
+
+    @Override
+    public Long getCedula() {
+        return super.getCedula();
+    }
 }

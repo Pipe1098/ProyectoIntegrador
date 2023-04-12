@@ -16,20 +16,21 @@ public abstract class Usuario {
     @Column(nullable = false)
     protected String apellido;
 
+    @Column(nullable = false, unique = true)
+    protected Long cedula;
+
     @Column(nullable = false)
     protected String celular;
 
     @Column(nullable = false, unique = true)
     protected String correo;
 
-    @Column(nullable = false)
+    @Column(name ="dir")
     protected String direccion;
 
     @Column(nullable = false)
     protected String ciudad;
 
-    @Column(nullable = false, unique = true)
-    protected Long cedula;
 
     // Constructor vacío requerido por JPA
     public Usuario() {}

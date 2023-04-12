@@ -1,6 +1,6 @@
-package com.example.Mensajeria.Controller;
+package com.example.Mensajeria.controller;
 
-import com.example.Mensajeria.Service.EmpleadoService;
+import com.example.Mensajeria.service.EmpleadoService;
 import com.example.Mensajeria.dto.EmpleadoDTO;
 import com.example.Mensajeria.model.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/e")
 public class EmpleadoController {
 
     @Autowired
@@ -49,9 +49,13 @@ public class EmpleadoController {
     }
 
     @DeleteMapping("empleado/{cedula}")
-    public ResponseEntity<Void> eliminarEmpleado(@PathVariable Long cedula) {
-        empleadoService.eliminarEmpleadoPorCedula(cedula);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<EmpleadoDTO> eliminarEmpleado(@PathVariable("cedula") Long cedula) {
+        EmpleadoDTO empleado = empleadoService.eliminarEmpleadoPorCedula(cedula);
+        if (empleado != null) {
+            return ResponseEntity.ok(empleado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
