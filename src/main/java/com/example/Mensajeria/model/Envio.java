@@ -25,6 +25,7 @@ public class Envio {
     @OneToOne
     private Paquete paquete;
 
+    public Envio() {}
     // Constructor de la clase
     public Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino,
                  String dirDestino, String nombreReceptor, int celReceptor,
@@ -43,8 +44,6 @@ public class Envio {
     }
 
     // Métodos de la clase
-
-    public Envio() {}
 
     public String generarNumGuia(){
         UUID uuid = UUID.randomUUID();

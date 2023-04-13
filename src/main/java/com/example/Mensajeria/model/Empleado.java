@@ -4,7 +4,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "empleados")
 public class Empleado extends Usuario {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     @Column(nullable = false)
     private int antigueadadEnEmpresa;
 
@@ -23,11 +25,12 @@ public class Empleado extends Usuario {
     }
 
     // Constructor con parámetros
-    public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
+    public Empleado(Long id,String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
         this.antigueadadEnEmpresa = antigueadadEnEmpresa;
         this.rh = rh;
         this.tipoEmpleado = tipoEmpleado;
+        this.id=id;
     }
 
     public int getAntigueadadEnEmpresa() {
@@ -48,6 +51,11 @@ public class Empleado extends Usuario {
 
     public String getTipoEmpleado() {
         return tipoEmpleado;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     public void setTipoEmpleado(String tipoEmpleado) {

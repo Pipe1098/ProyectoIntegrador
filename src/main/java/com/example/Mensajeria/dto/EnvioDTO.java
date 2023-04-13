@@ -12,6 +12,9 @@ public class EnvioDTO {
     private double valorEnvio;
     private PaqueteDTO paquete;
 
+    public EnvioDTO() {
+    }
+
     public EnvioDTO(String numeroGuia, ClienteDTO cliente, String ciudadOrigen, String dirDestino, LocalDateTime horaEntrega, String estadoEnvio, double valorEnvio, PaqueteDTO paquete) {
         this.numeroGuia = numeroGuia;
         this.cliente = cliente;

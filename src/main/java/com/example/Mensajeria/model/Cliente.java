@@ -40,8 +40,9 @@ public class Cliente extends Usuario {
     }
 
     // Constructor con parámetros
-    public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, String direccionEnvio) {
+    public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, Long id, String direccionEnvio) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
+        this.id = id;
         this.direccionEnvio = direccionEnvio;
     }
 

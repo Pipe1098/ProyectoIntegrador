@@ -3,10 +3,8 @@ package com.example.Mensajeria.service;
 import com.example.Mensajeria.dto.ClienteDTO;
 import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.Cliente;
-import com.example.Mensajeria.model.Empleado;
 import com.example.Mensajeria.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +17,9 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     private ModelMapper modelMapper;
 
-    @Autowired
     public ClienteService(ClienteRepository clienteRepository, ModelMapper modelMapper) {
         this.clienteRepository = clienteRepository;
         this.modelMapper = modelMapper;
-    }
-
-    public ClienteService() {
     }
 
     public ClienteDTO crear(Cliente cliente) {
@@ -40,7 +34,7 @@ public class ClienteService {
 
     public boolean validarCliente(Cliente cliente) {
         if (cliente.getCedula() == null) {
-            // La cédula no es numérica o es nula
+            // La cédula es nula
             return false;
         }
 
@@ -53,8 +47,8 @@ public class ClienteService {
     }
 
         public List<ClienteDTO> crearClientes() {
-        this.clienteRepository.save(new Cliente("Carlos", "Perez","3001458964", "Carlos@hotmail.com","CR 50-30","Medellin",123465L,"CRA 20 70"));
-        this.clienteRepository.save(new Cliente("Andres", "Montoya","3014589442", "example@hotmail.com","CR 80-20","Pereira",456789L,"CRA 62 43"));
+        this.clienteRepository.save(new Cliente("Carlos", "Perez","3001458964", "Carlos@hotmail.com","CR 50-30","Medellin",123465L, 1l, "CRA 20 70"));
+        this.clienteRepository.save(new Cliente("Andres", "Montoya","3014589442", "example@hotmail.com","CR 80-20","Pereira",456789L, 2l, "CRA 62 43"));
         return clienteRepository.findAll().
                 stream()
                 .map(cliente -> new ClienteDTO(

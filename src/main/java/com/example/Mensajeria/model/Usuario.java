@@ -44,6 +44,7 @@ public abstract class Usuario {
         this.direccion = direccion;
         this.ciudad = ciudad;
         this.cedula = cedula;
+        this.id=id;
     }
 
     public Long getId() {

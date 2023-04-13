@@ -6,6 +6,8 @@ public class PaqueteDTO {
     private double peso;
     private double valorDeclarado;
 
+    public PaqueteDTO() {
+    }
 
     public PaqueteDTO(String idPaquete, String tipoPaquete, double peso, double valorDeclarado) {
         this.idPaquete = idPaquete;

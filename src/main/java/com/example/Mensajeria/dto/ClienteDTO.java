@@ -7,6 +7,8 @@ public class ClienteDTO {
     private String nombre;
     private String correoElectronico;
     private String celular;
+    public ClienteDTO() {
+    }
 
     public ClienteDTO(Long cedula, String nombre, String apellido, String correoElectronico, String celular) {
 
@@ -17,8 +19,6 @@ public class ClienteDTO {
         this.celular = celular;
     }
 
-    public ClienteDTO() {
-    }
 
     public String getApellido() {
         return apellido;

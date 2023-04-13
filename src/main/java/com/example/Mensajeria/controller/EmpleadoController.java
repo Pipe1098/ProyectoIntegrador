@@ -3,7 +3,6 @@ package com.example.Mensajeria.controller;
 import com.example.Mensajeria.service.EmpleadoService;
 import com.example.Mensajeria.dto.EmpleadoDTO;
 import com.example.Mensajeria.model.Empleado;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,12 @@ import java.util.List;
 @RequestMapping("api/v1/e")
 public class EmpleadoController {
 
-    @Autowired
-    private EmpleadoService empleadoService;
+
+    private final EmpleadoService empleadoService;
+
+    public EmpleadoController(EmpleadoService empleadoService) {
+        this.empleadoService = empleadoService;
+    }
 
     @GetMapping("/empleados")
     public List<EmpleadoDTO> obtenerEmpleados() {
@@ -38,7 +41,7 @@ public class EmpleadoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(empleadoCreado);
     }
 
-    @PutMapping("/empleado/{cedula}")
+    @PutMapping("/empleadoss/{cedula}")
     public ResponseEntity<EmpleadoDTO> actualizarEmpleado(@PathVariable Long cedula, @RequestBody EmpleadoDTO empleadoDTO) {
         EmpleadoDTO empleadoActualizado = empleadoService.actualizar(cedula,empleadoDTO);
         if (empleadoActualizado != null) {
@@ -48,15 +51,18 @@ public class EmpleadoController {
         }
     }
 
-    @DeleteMapping("empleado/{cedula}")
-    public ResponseEntity<EmpleadoDTO> eliminarEmpleado(@PathVariable("cedula") Long cedula) {
+    @DeleteMapping("/empleado/{id}")
+    public void deleteEmpleadoById(@PathVariable Long id) {
+        empleadoService.deleteById(id);
+    }
+    /*public ResponseEntity<EmpleadoDTO> eliminarEmpleado(@PathVariable Long cedula) {
         EmpleadoDTO empleado = empleadoService.eliminarEmpleadoPorCedula(cedula);
         if (empleado != null) {
             return ResponseEntity.ok(empleado);
         } else {
             return ResponseEntity.notFound().build();
-        }
-    }
+        }*/
+   // }
 
 }
 

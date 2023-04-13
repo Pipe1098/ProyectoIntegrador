@@ -1,13 +1,12 @@
 package com.example.Mensajeria.service;
 
 import com.example.Mensajeria.dto.EmpleadoDTO;
-import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.Empleado;
 import com.example.Mensajeria.repository.EmpleadoRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +14,8 @@ import java.util.Optional;
 @Service
 public class EmpleadoService {
 
-    private EmpleadoRepository empleadoRepository;
-    private ModelMapper modelMapper;
+    private final EmpleadoRepository empleadoRepository;
+    private final ModelMapper modelMapper;
 
     public EmpleadoService(EmpleadoRepository empleadoRepository, ModelMapper modelMapper) {
         this.empleadoRepository = empleadoRepository;
@@ -83,7 +82,7 @@ public class EmpleadoService {
 
     private EmpleadoDTO convertirEmpleadoAEmpleadoDTO(Empleado empleado) {
         EmpleadoDTO empleadoDTO = new EmpleadoDTO(
-                empleado.getCedula(),
+                empleado.getId(), empleado.getCedula(),
                 empleado.getApellido(),
                 empleado.getNombre(),
                 empleado.getCorreo(),
@@ -93,5 +92,12 @@ public class EmpleadoService {
         );
         return empleadoDTO;
     }
+    public void deleteById(Long id) {
+        if (!empleadoRepository.existsById(id)) {
+            throw new EntityNotFoundException("empleado no encontrado con ID: " + id);
+        }
+        empleadoRepository.deleteById(id);
+    }
+
 }
 
