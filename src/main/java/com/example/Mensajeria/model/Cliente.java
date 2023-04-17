@@ -1,9 +1,8 @@
 package com.example.Mensajeria.model;
-import com.example.Mensajeria.model.Usuario;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import net.bytebuddy.asm.Advice;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "clientes")
@@ -15,13 +14,10 @@ public class Cliente extends Usuario {
     // Constructor vacío requerido por JPA
     public Cliente() {}
 
-    @Override
-    public void setNombre(String nombre) {
-        this.nombre=nombre;
-    }
+
 
     // Constructor con parámetros
-    public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, String direccionEnvio) {
+    public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, int cedula, String direccionEnvio) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
         this.direccionEnvio = direccionEnvio;
     }
@@ -34,4 +30,8 @@ public class Cliente extends Usuario {
         this.direccionEnvio = direccionEnvio;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre=nombre;
+    }
 }
+

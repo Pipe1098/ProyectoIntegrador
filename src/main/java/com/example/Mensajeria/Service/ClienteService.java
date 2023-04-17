@@ -1,13 +1,18 @@
 package com.example.Mensajeria.Service;
 
 import com.example.Mensajeria.dto.ClienteDTO;
+
+import com.example.Mensajeria.dto.EmpleadoDTO;
 import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.Cliente;
+
+import com.example.Mensajeria.model.Empleado;
 import com.example.Mensajeria.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,20 +21,15 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private ClienteRepository clienteRepository;
-    private ModelMapper modelMapper;
-
-    @Autowired
-    public ClienteService(ClienteRepository clienteRepository, ModelMapper modelMapper) {
+    //private  ModelMapper modelMapper;
+@Autowired
+    public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
-        this.modelMapper = modelMapper;
-    }
-
-    public ClienteService() {
     }
 
     public ClienteDTO crear(Cliente cliente) {
         if (validarCliente(cliente)) {
-            ClienteDTO clienteDTO = new ClienteDTO(cliente.getCedula(), cliente.getNombre(), cliente.getApellido(), cliente.getCorreo(),cliente.getCelular());
+            ClienteDTO clienteDTO = new ClienteDTO(cliente.getNombre(), cliente.getApellido(), cliente.getCelular(), cliente.getCorreo(), cliente.getCedula());
             this.clienteRepository.save(cliente);
             return clienteDTO;
         } else {
@@ -38,7 +38,7 @@ public class ClienteService {
     }
 
     public boolean validarCliente(Cliente cliente) {
-        if (cliente.getCedula() == null || !cliente.getCedula().toString().matches("\\d+")) {
+        if (cliente.getCedula()==0) {
             // La cédula no es numérica o es nula
             return false;
         }
@@ -51,47 +51,67 @@ public class ClienteService {
         return true;
     }
 
-        public List<ClienteDTO> crearClientes() {
-        this.clienteRepository.save(new Cliente("Carlos", "Perez","3001458964", "Carlos@hotmail.com","CR 50-30","Medellin",123465L,"CRA 20 70"));
-        this.clienteRepository.save(new Cliente("Andres", "Montoya","3014589442", "example@hotmail.com","CR 80-20","Pereira",456789L,"CRA 62 43"));
+    public List<ClienteDTO> crearClientes() {
+        this.clienteRepository.save(new Cliente("Carlos", "Perez","3001458964", "Carlos@hotmail.com","CR 50-30","Medellin",45585,"CRA 20 70"));
+        this.clienteRepository.save(new Cliente("Andres", "Montoya","3014589442", "example@hotmail.com","CR 80-20","Pereira",456789,"CRA 62 43"));
         return clienteRepository.findAll().
                 stream()
                 .map(cliente -> new ClienteDTO(
-                        cliente.getCedula(),
                         cliente.getNombre(),
                         cliente.getApellido(),
+                        cliente.getCelular(),
                         cliente.getCorreo(),
-                        cliente.getCelular()))
+                        cliente.getCedula()))
                 .collect(Collectors.toList());
     }
-
-    public List<Cliente> getAllClientes() {
-        return this.clienteRepository.findAll();
+    public List<ClienteDTO> obtenerTodosLosClientes() {
+        List<Cliente> clientes = clienteRepository.findAll();
+        return clientes.stream().
+                map(cliente -> new ClienteDTO(
+                        cliente.getNombre(), cliente.getApellido(),
+                        cliente.getCelular(), cliente.getCorreo(),
+                        cliente.getCedula())).collect(Collectors.toList());
     }
 
-    public Cliente getClienteByCedula(Long cedula) {
-        return clienteRepository.getByCedula(cedula);
+    public ClienteDTO obtenerClientePorCedula(long cedula) {
+        Cliente clienteEncontrado = clienteRepository.findAll()
+                .stream()
+                .filter(cliente -> cliente.getCedula() == cedula)
+                .findFirst()
+                .orElse(null);
+
+        if (clienteEncontrado == null) {
+            // Manejo del caso en que no se encuentra el cliente
+            return null;
+        } else {
+            ClienteDTO clienteDTO = new ClienteDTO(clienteEncontrado.getNombre(), clienteEncontrado.getApellido(), clienteEncontrado.getCelular(), clienteEncontrado.getCorreo(), clienteEncontrado.getCedula());
+            return clienteDTO;
+        }
     }
 
-    public ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO) {
-        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
+    public ClienteDTO actualizarCliente(int cedula, ClienteDTO clienteDTO) {
+        Optional<Cliente> optionalCliente = clienteRepository.findByCedula(cedula);
         if (optionalCliente.isPresent()) {
             Cliente cliente = optionalCliente.get();
             cliente.setNombre(clienteDTO.getNombre());
             cliente.setApellido(clienteDTO.getApellido());
-            cliente.setCedula(clienteDTO.getCedula());
             cliente.setCelular(clienteDTO.getCelular());
-            cliente.setCorreo(clienteDTO.getCorreoElectronico());
+            cliente.setCorreo(clienteDTO.getCorreo());
             cliente = clienteRepository.save(cliente);
-            return modelMapper.map(cliente, ClienteDTO.class);
+            return clienteDTO;
         } else {
-            throw new ApiRequestException("El cliente con id " + id + " no existe.");
+            throw new ApiRequestException("El cliente con cedula " + cedula+ " no se encuentra registrado.");
         }
     }
 
+    public void eliminarClientePorCedula(int cedula) {
+        Optional<Cliente> clienteExistente = clienteRepository.findByCedula(cedula);
 
-    public void deleteCliente(Long id) {
-        clienteRepository.deleteById(id);
+        if (!clienteExistente.isPresent()) {
+            throw new IllegalArgumentException("No se encontró ningún cliente con la cédula = "+cedula);
+        }
+        clienteRepository.deleteById(clienteExistente.get().getId());
+    }
     }
 
-}
+

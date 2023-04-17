@@ -1,7 +1,10 @@
 package com.example.Mensajeria.Controller;
 
 import com.example.Mensajeria.Service.PaqueteService;
+
 import com.example.Mensajeria.dto.PaqueteDTO;
+import com.example.Mensajeria.model.Paquete;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +14,13 @@ import java.util.List;
 @RequestMapping("api/v1")
 public class PaqueteController {
 
-    private final PaqueteService paqueteService;
+    private  PaqueteService paqueteService;
 
+@Autowired
     public PaqueteController(PaqueteService paqueteService) {
         this.paqueteService = paqueteService;
-    }
+
+}
 
     @GetMapping("/paquetes")
     public List<PaqueteDTO> getAllPaquetes() {
@@ -27,10 +32,10 @@ public class PaqueteController {
         return paqueteService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/paquete")
     @ResponseStatus(HttpStatus.CREATED)
-    public PaqueteDTO createPaquete(@RequestBody PaqueteDTO paqueteDTO) {
-        return paqueteService.save(paqueteDTO);
+    public PaqueteDTO createPaquete(@RequestBody Paquete paquete) {
+        return paqueteService.save(paquete);
     }
 
     @PutMapping("/paquete/{id}")

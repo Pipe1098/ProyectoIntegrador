@@ -4,6 +4,7 @@ import com.example.Mensajeria.model.Envio;
 import com.example.Mensajeria.model.Paquete;
 import com.example.Mensajeria.repository.EnvioRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,14 +15,14 @@ import java.util.stream.Collectors;
 public class EnvioService {
 
     private final EnvioRepository envioRepository;
-    private final ModelMapper modelMapper;
-
-    public EnvioService(EnvioRepository envioRepository, ModelMapper modelMapper) {
+   // private final ModelMapper modelMapper;
+@Autowired
+    public EnvioService(EnvioRepository envioRepository) {
         this.envioRepository = envioRepository;
-        this.modelMapper = modelMapper;
+
     }
 
-    public List<EnvioDTO> findAll() {
+ /*   public List<EnvioDTO> findAll() {
         List<Envio> envios = envioRepository.findAll();
         return envios.stream()
                 .map(envio -> modelMapper.map(envio, EnvioDTO.class))
@@ -56,7 +57,7 @@ public class EnvioService {
             throw new EntityNotFoundException("Envío no encontrado con ID: " + id);
         }
         envioRepository.deleteById(id);
-    }
+    }*/
 }
 
 

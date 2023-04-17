@@ -2,41 +2,42 @@ package com.example.Mensajeria.dto;
 
 public class ClienteDTO {
 
-    private  Long cedula;
-    private  String apellido;
     private String nombre;
-    private String correoElectronico;
+    private String apellido;
     private String celular;
+    private String correo;
+    private int cedula;
 
-    public ClienteDTO(Long cedula, String nombre, String apellido, String correoElectronico, String celular) {
-
+    public ClienteDTO(String nombre, String apellido, String celular, String correo, int cedula) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.correoElectronico = correoElectronico;
-        this.cedula=cedula;
         this.celular = celular;
+        this.correo = correo;
+        this.cedula = cedula;
     }
 
     public ClienteDTO() {
-    }
-
-    public String getApellido() {
-        return apellido;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public Long getCedula() {
-        return cedula;
+    public String getApellido() {
+        return apellido;
     }
 
     public String getCelular() {
         return celular;
     }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public int getCedula() {
+        return cedula;
+    }
+
 }
+

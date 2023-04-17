@@ -3,69 +3,75 @@ package com.example.Mensajeria.Controller;
 import com.example.Mensajeria.Service.ClienteService;
 import com.example.Mensajeria.dto.ClienteDTO;
 import com.example.Mensajeria.model.Cliente;
-import org.modelmapper.ModelMapper;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1")
 public class ClienteController {
 
-    @Autowired
     private ClienteService clienteService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Cliente creado con exito"),
+            @ApiResponse(code = 404, message = "No se pudo crear el cliente con los datos ingresados"),
+            @ApiResponse(code = 500, message = "Error de conexion")
+    })
 
+    @ApiOperation(value = "Crear un cliente", notes= "Crea un nuevo cliente en la base de datos con la información proporcionada en el cuerpo de la solicitud.", response = ClienteDTO.class)
+    @PostMapping("/cliente")
+    public ClienteDTO crear(@RequestBody Cliente cliente) {
+        return this.clienteService.crear(cliente);
+    }
 
+    @ApiOperation(value = "Crear clientes", notes= "Crea  una lista de clientes por defecto para probar la api.", response = ClienteDTO.class)
+    @PostMapping("/clientes")
+    public ResponseEntity<Cliente> crearClientes() {
+        this.clienteService.crearClientes();
+        return new ResponseEntity("Se crearon las clientes por defecto.", HttpStatus.CREATED);
+    }
+    @ApiOperation(value = "Obtener clientes", notes= "Muestra todos los clientes registrados en la base de datos", response = ClienteDTO.class)
     @GetMapping("/clientes")
-    public List<ClienteDTO> getAllClientes() {
-        List<Cliente> clientes = clienteService.getAllClientes();
-        return clientes.stream()
-                .map(cliente -> modelMapper.map(cliente, ClienteDTO.class))
-                .collect(Collectors.toList());
+    public ResponseEntity<List<ClienteDTO>> obtenerClientes() {
+        List<ClienteDTO> clientes = this.clienteService.obtenerTodosLosClientes();
+        return new ResponseEntity<>(clientes, HttpStatus.OK);
+    }
+
+    @PutMapping("/cliente/{cedula}")
+    public ResponseEntity<ClienteDTO> actualizarCliente(@PathVariable int cedula, @RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO clienteActualizado = clienteService.actualizarCliente(cedula,clienteDTO);
+        if (clienteActualizado!= null) {
+            return ResponseEntity.ok(clienteActualizado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("cliente/{cedula}")
-    public ResponseEntity<ClienteDTO> getClienteByCedula(@PathVariable Long cedula) {
-        Cliente cliente = clienteService.getClienteByCedula(cedula);
-        if (cliente == null) {
+    public ResponseEntity<ClienteDTO> obtenerClientePorCedula(@PathVariable long cedula) {
+       ClienteDTO clienteEncontrado= clienteService.obtenerClientePorCedula(cedula);
+        if (clienteEncontrado!= null) {
+            return ResponseEntity.ok(clienteEncontrado);
+        } else {
             return ResponseEntity.notFound().build();
         }
-        ClienteDTO clienteDTO = modelMapper.map(cliente, ClienteDTO.class);
-        return ResponseEntity.ok(clienteDTO);
     }
-
-    @PostMapping("/cliente")
-    public ResponseEntity<ClienteDTO> addCliente(@RequestBody Cliente cliente) {
-       ClienteDTO clienteDTO = clienteService.crear(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
-    }
-
-    @PutMapping("cliente/{cedula}")
-    public ResponseEntity<ClienteDTO> updateCliente(@PathVariable Long cedula, @RequestBody ClienteDTO clienteDTO) {
-        Cliente cliente = clienteService.getClienteByCedula(cedula);
-        if (cliente == null) {
-            return ResponseEntity.notFound().build();
-        }
-        clienteService.updateCliente(cedula,clienteDTO );
-        ClienteDTO updatedClienteDTO = modelMapper.map(cliente, ClienteDTO.class);
-        return ResponseEntity.ok(updatedClienteDTO);
-    }
-
     @DeleteMapping("cliente/{cedula}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable Long cedula) {
-        Cliente cliente = clienteService.getClienteByCedula(cedula);
-        if (cliente == null) {
-            return ResponseEntity.notFound().build();
-        }
-        clienteService.deleteCliente(cedula);
+    public ResponseEntity<Void> eliminarCliente(@PathVariable("cedula") int cedula) {
+        this.clienteService.eliminarClientePorCedula(cedula);
         return ResponseEntity.noContent().build();
     }
-}
 
+}

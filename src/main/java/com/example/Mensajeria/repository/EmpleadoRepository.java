@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
     Optional<Empleado> findById(Long id);
 
-    Empleado findByCedula(Long cedula);
+    Optional<Empleado> findByCedula(int cedula);
+
+    void deleteByCedula(int cedula);
 }

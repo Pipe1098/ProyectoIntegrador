@@ -54,5 +54,37 @@ public class EnvioDTO {
     public PaqueteDTO getPaquete() {
         return paquete;
     }
+
+    public void setNumeroGuia(String numeroGuia) {
+        this.numeroGuia = numeroGuia;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setCiudadOrigen(String ciudadOrigen) {
+        this.ciudadOrigen = ciudadOrigen;
+    }
+
+    public void setDirDestino(String dirDestino) {
+        this.dirDestino = dirDestino;
+    }
+
+    public void setHoraEntrega(LocalDateTime horaEntrega) {
+        this.horaEntrega = horaEntrega;
+    }
+
+    public void setEstadoEnvio(String estadoEnvio) {
+        this.estadoEnvio = estadoEnvio;
+    }
+
+    public void setValorEnvio(double valorEnvio) {
+        this.valorEnvio = valorEnvio;
+    }
+
+    public void setPaquete(PaqueteDTO paquete) {
+        this.paquete = paquete;
+    }
 }
 

@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("api/v1")
 public class EnvioController {
 
-    private final EnvioService envioService;
+  /*  private final EnvioService envioService;
 
     public EnvioController(EnvioService envioService) {
         this.envioService = envioService;
@@ -44,5 +44,5 @@ public class EnvioController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable String id) {
         envioService.deleteById(id);
-    }
+    }*/
 }

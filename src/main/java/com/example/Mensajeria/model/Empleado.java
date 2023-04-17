@@ -17,13 +17,9 @@ public class Empleado extends Usuario {
     // Constructor vacío requerido por JPA
     public Empleado() {}
 
-    @Override
-    public void setNombre(String nombre) {
-        this.nombre=nombre;
-    }
 
     // Constructor con parámetros
-    public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
+    public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, int cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
         this.antigueadadEnEmpresa = antigueadadEnEmpresa;
         this.rh = rh;
@@ -46,11 +42,32 @@ public class Empleado extends Usuario {
         this.rh = rh;
     }
 
+/*    public enum TipoEmpleado {
+
+        REPARTIDOR(1),
+        CONDUCTOR(2),
+        RECEPCIONISTA(3);
+
+        private int valor;
+
+        TipoEmpleado(int valor) {
+            this.valor = valor;
+        }
+
+        public int getValor() {
+            return valor;
+        }
+    }*/
+
     public String getTipoEmpleado() {
         return tipoEmpleado;
     }
 
     public void setTipoEmpleado(String tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre=nombre;
     }
 }

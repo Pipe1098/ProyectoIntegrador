@@ -1,24 +1,24 @@
 package com.example.Mensajeria.dto;
 
 public class PaqueteDTO {
-    private String idPaquete;
-    private String tipoPaquete;
+
     private double peso;
     private double valorDeclarado;
 
-    public PaqueteDTO(String idPaquete, String tipoPaquete, double peso, double valorDeclarado) {
-        this.idPaquete = idPaquete;
-        this.tipoPaquete = tipoPaquete;
+    public PaqueteDTO() {
+    }
+
+    public PaqueteDTO(double peso, double valorDeclarado) {
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;
     }
 
-    public String getIdPaquete() {
-        return idPaquete;
+    public void setPeso(double peso) {
+        this.peso = peso;
     }
 
-    public String getTipoPaquete() {
-        return tipoPaquete;
+    public void setValorDeclarado(double valorDeclarado) {
+        this.valorDeclarado = valorDeclarado;
     }
 
     public double getPeso() {

@@ -3,7 +3,7 @@ package com.example.Mensajeria.dto;
 
 public class EmpleadoDTO {
 
-    private Long cedula;
+    private int cedula;
     private String apellido;
     private String nombre;
     private String correoElectronico;
@@ -11,7 +11,7 @@ public class EmpleadoDTO {
     private String tipoEmpleado;
     private int antiguedadEnEmpresa;
 
-    public EmpleadoDTO(Long cedula, String apellido, String nombre, String correoElectronico, String celular, String tipoEmpleado, int antiguedadEnEmpresa) {
+    public EmpleadoDTO(int cedula, String apellido, String nombre, String correoElectronico, String celular, String tipoEmpleado, int antiguedadEnEmpresa) {
         this.cedula = cedula;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -24,7 +24,7 @@ public class EmpleadoDTO {
     public EmpleadoDTO() {
     }
 
-    public Long getCedula() {
+    public int getCedula() {
         return cedula;
     }
 
@@ -39,10 +39,27 @@ public class EmpleadoDTO {
     public String getCorreoElectronico() {
         return correoElectronico;
     }
+    /*    public enum String{
 
+            REPARTIDOR(1),
+            CONDUCTOR(2),
+            RECEPCIONISTA(3);
+
+            private int valor;
+
+            TipoEmpleado(int valor) {
+                this.valor = valor;
+            }
+
+            public int getValor() {
+                return valor;
+            }
+        }*/
     public String getCelular() {
         return celular;
     }
+
+
 
     public String getTipoEmpleado() {
         return tipoEmpleado;
