@@ -6,11 +6,10 @@ import com.example.Mensajeria.model.Empleado;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/e")
+@RequestMapping("api/v1")
 public class EmpleadoController {
 
 
@@ -21,12 +20,12 @@ public class EmpleadoController {
     }
 
     @GetMapping("/empleados")
-    public List<EmpleadoDTO> obtenerEmpleados() {
+    public List<EmpleadoDTO> getAllEmpleados() {
         return empleadoService.obtenerTodosLosEmpleados();
     }
 
-    @GetMapping("/empleados/{cedula}")
-    public ResponseEntity<EmpleadoDTO> obtenerEmpleadoPorCedula(@PathVariable Long cedula) {
+    @GetMapping("/empleado/{cedula}")
+    public ResponseEntity<EmpleadoDTO> getEmpleadoById(@PathVariable Long cedula) {
         EmpleadoDTO empleado = empleadoService.obtenerEmpleadoPorCedula(cedula);
         if (empleado != null) {
             return ResponseEntity.ok(empleado);
@@ -36,13 +35,17 @@ public class EmpleadoController {
     }
 
     @PostMapping("/empleado")
-    public ResponseEntity<EmpleadoDTO> crearEmpleado(@RequestBody Empleado empleado) {
-        EmpleadoDTO empleadoCreado = empleadoService.guardarEmpleado(empleado);
+    public ResponseEntity<EmpleadoDTO> addEmpleado(@RequestBody Empleado empleado) {
+        EmpleadoDTO empleadoCreado = empleadoService.addEmpleado(empleado);
         return ResponseEntity.status(HttpStatus.CREATED).body(empleadoCreado);
     }
-
-    @PutMapping("/empleadoss/{cedula}")
-    public ResponseEntity<EmpleadoDTO> actualizarEmpleado(@PathVariable Long cedula, @RequestBody EmpleadoDTO empleadoDTO) {
+    @PostMapping("/empleados")
+    public ResponseEntity<List<EmpleadoDTO>> addEmpleados() {
+        List<EmpleadoDTO> empleados= empleadoService.crearEmpleados();
+        return ResponseEntity.status(HttpStatus.CREATED).body(empleados);
+    }
+    @PutMapping("/empleados/{cedula}")
+    public ResponseEntity<EmpleadoDTO> updateEmpleado(@PathVariable Long cedula, @RequestBody EmpleadoDTO empleadoDTO) {
         EmpleadoDTO empleadoActualizado = empleadoService.actualizar(cedula,empleadoDTO);
         if (empleadoActualizado != null) {
             return ResponseEntity.ok(empleadoActualizado);
@@ -50,19 +53,11 @@ public class EmpleadoController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @DeleteMapping("/empleado/{id}")
-    public void deleteEmpleadoById(@PathVariable Long id) {
-        empleadoService.deleteById(id);
+    public String deleteEmpleadoById(@PathVariable Long cedula) {
+        empleadoService.deleteById(cedula);
+        return "Empleado con cedula: "+cedula+" eliminado exitosamente";
     }
-    /*public ResponseEntity<EmpleadoDTO> eliminarEmpleado(@PathVariable Long cedula) {
-        EmpleadoDTO empleado = empleadoService.eliminarEmpleadoPorCedula(cedula);
-        if (empleado != null) {
-            return ResponseEntity.ok(empleado);
-        } else {
-            return ResponseEntity.notFound().build();
-        }*/
-   // }
 
 }
 

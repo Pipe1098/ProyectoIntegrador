@@ -27,7 +27,7 @@ public class PaqueteController {
         return paqueteService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/paquete")
     @ResponseStatus(HttpStatus.CREATED)
     public PaqueteDTO createPaquete(@RequestBody PaqueteDTO paqueteDTO) {
         return paqueteService.save(paqueteDTO);

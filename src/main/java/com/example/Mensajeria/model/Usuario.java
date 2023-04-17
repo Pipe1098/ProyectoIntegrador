@@ -31,7 +31,6 @@ public abstract class Usuario {
     @Column(nullable = false)
     protected String ciudad;
 
-
     // Constructor vacío requerido por JPA
     public Usuario() {}
 
@@ -45,6 +44,7 @@ public abstract class Usuario {
         this.ciudad = ciudad;
         this.cedula = cedula;
         this.id=id;
+
     }
 
     public Long getId() {
@@ -104,6 +104,8 @@ public abstract class Usuario {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+
+
 
     public void setCedula(Long cedula) {
         this.cedula = cedula;

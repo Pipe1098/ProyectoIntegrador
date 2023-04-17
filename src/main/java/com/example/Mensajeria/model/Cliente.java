@@ -7,7 +7,7 @@ public class Cliente extends Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+/*
     @Column(nullable = false)
     private String nombre;
 
@@ -27,9 +27,8 @@ public class Cliente extends Usuario {
    private String direccion;
 
     @Column(nullable = false)
-   private String ciudad;
-    @Column(nullable = false)
-    private String direccionEnvio;
+   private String ciudad;*/
+
 
     // Constructor vacío requerido por JPA
     public Cliente() {}
@@ -40,57 +39,14 @@ public class Cliente extends Usuario {
     }
 
     // Constructor con parámetros
-    public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, Long id, String direccionEnvio) {
+    public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, Long cedula, Long id) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
         this.id = id;
-        this.direccionEnvio = direccionEnvio;
-    }
 
-    public String getDireccionEnvio() {
-        return direccionEnvio;
-    }
-
-    public void setDireccionEnvio(String direccionEnvio) {
-        this.direccionEnvio = direccionEnvio;
     }
 
     @Override
     public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public String getNombre() {
-        return super.getNombre();
-    }
-
-    @Override
-    public String getApellido() {
-        return super.getApellido();
-    }
-
-    @Override
-    public String getCelular() {
-        return super.getCelular();
-    }
-
-    @Override
-    public String getCorreo() {
-        return super.getCorreo();
-    }
-
-    @Override
-    public String getDireccion() {
-        return super.getDireccion();
-    }
-
-    @Override
-    public String getCiudad() {
-        return super.getCiudad();
-    }
-
-    @Override
-    public Long getCedula() {
-        return super.getCedula();
+        return id;
     }
 }
