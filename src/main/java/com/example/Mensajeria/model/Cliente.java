@@ -30,7 +30,7 @@ public class Cliente extends Usuario {
    private String ciudad;*/
 
 
-    // Constructor vacío requerido por JPA
+  
     public Cliente() {}
 
     @Override
