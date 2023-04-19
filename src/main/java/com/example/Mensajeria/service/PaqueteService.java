@@ -1,4 +1,4 @@
-package com.example.Mensajeria.Service;
+package com.example.Mensajeria.service;
 
 
 import com.example.Mensajeria.configurer.PaqueteMapper;
@@ -7,6 +7,7 @@ import com.example.Mensajeria.model.Paquete;
 import com.example.Mensajeria.repository.PaqueteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,11 +15,12 @@ import java.util.stream.Collectors;
 @Service
 public class PaqueteService {
 
-    private  PaqueteRepository paqueteRepository;
+    private PaqueteRepository paqueteRepository;
 
     public PaqueteService() {
     }
-@Autowired
+
+    @Autowired
     public PaqueteService(PaqueteRepository paqueteRepository) {
         this.paqueteRepository = paqueteRepository;
     }
@@ -40,10 +42,10 @@ public class PaqueteService {
   /*  Paquete paquete = new Paquete("123", "Tipo A", 1.5, 100.0);
     PaqueteDTO paqueteDTO = PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);*/
 
-    public PaqueteDTO save(Paquete paquete) {
-        paquete= paqueteRepository.save(paquete);
+    public PaqueteDTO crear(Paquete paquete) {
+        paquete = paqueteRepository.save(paquete);
         //Paquete paquete = modelMapper.map(paqueteDTO, Paquete.class);
-        PaqueteDTO paqueteDTO=PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);
+        PaqueteDTO paqueteDTO = PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);
 
         return paqueteDTO;
     }

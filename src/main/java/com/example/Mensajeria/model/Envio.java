@@ -1,9 +1,17 @@
 package com.example.Mensajeria.model;
+import com.example.Mensajeria.service.EnvioService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Envio {
 
     // Atributos de la clase
@@ -17,19 +25,16 @@ public class Envio {
     private String ciudadDestino;
     private String dirDestino;
     private String nombreReceptor;
-    private int celReceptor;
+    private String celReceptor;
     private LocalDateTime horaEntrega;
-    private EstadoEnvio estadoEnvio;
+    private EnvioService.EstadoEnvio estadoEnvio;
     private double valorEnvio;
 
     @OneToOne
     private Paquete paquete;
 
-    // Constructor de la clase
-    public Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino,
-                 String dirDestino, String nombreReceptor, int celReceptor,
-                 LocalDateTime horaEntrega, EstadoEnvio estadoEnvio, double valorEnvio, Paquete paquete) {
-        this.numeroGuia = generarNumGuia();
+
+    public Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime horaEntrega, EnvioService.EstadoEnvio estadoEnvio, double valorEnvio, Paquete paquete) {
         this.cliente = cliente;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
@@ -41,23 +46,15 @@ public class Envio {
         this.valorEnvio = valorEnvio;
         this.paquete = paquete;
     }
+// Métodos de la clase
 
-    // Métodos de la clase
-
-    public Envio() {}
-
-    public String generarNumGuia(){
+  /*  public String generarNumGuia(){
         UUID uuid = UUID.randomUUID();
         String codigo = uuid.toString().replace("-", "").substring(0, 10);
         return codigo;
-    }
+    }*/
 
-    public String getNumeroGuia() {
-        return this.numeroGuia;
-    }
-
-
-    public enum EstadoEnvio {
+/*    public enum EstadoEnvio {
 
         RECIBIDO(1),
         EN_RUTA(2),
@@ -72,6 +69,10 @@ public class Envio {
         public int getValor() {
             return valor;
         }
+    }*/
+
+    public String getNumeroGuia() {
+        return numeroGuia;
     }
 
     public void setNumeroGuia(String numeroGuia) {
@@ -118,11 +119,11 @@ public class Envio {
         this.nombreReceptor = nombreReceptor;
     }
 
-    public int getCelReceptor() {
+    public String getCelReceptor() {
         return celReceptor;
     }
 
-    public void setCelReceptor(int celReceptor) {
+    public void setCelReceptor(String celReceptor) {
         this.celReceptor = celReceptor;
     }
 
@@ -134,11 +135,11 @@ public class Envio {
         this.horaEntrega = horaEntrega;
     }
 
-    public EstadoEnvio getEstadoEnvio() {
+    public EnvioService.EstadoEnvio getEstadoEnvio() {
         return estadoEnvio;
     }
 
-    public void setEstadoEnvio(EstadoEnvio estadoEnvio) {
+    public void setEstadoEnvio(EnvioService.EstadoEnvio estadoEnvio) {
         this.estadoEnvio = estadoEnvio;
     }
 
@@ -158,4 +159,11 @@ public class Envio {
         this.paquete = paquete;
     }
 
+    @Override
+    public String toString() {
+        return "Envio{" +
+                "numeroGuia='" + numeroGuia + '\'' +
+                ", estadoEnvio=" + estadoEnvio +
+                '}';
+    }
 }

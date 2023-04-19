@@ -1,4 +1,4 @@
-package com.example.Mensajeria.Service;
+package com.example.Mensajeria.service;
 
 
 import com.example.Mensajeria.dto.EmpleadoDTO;
@@ -37,7 +37,7 @@ public class EmpleadoService {
     }
 
     private boolean validarEmpleado(Empleado empleado) {
-        if (empleado.getCedula()==0) {
+        if (empleado.getCedula()==null) {
             // La cédula no es numérica o es nula
             return false;
         }
@@ -50,8 +50,8 @@ public class EmpleadoService {
         return true;
     }
     public List<EmpleadoDTO> crearEmpleados() {
-        this.empleadoRepository.save(new Empleado("Carlos", "Perez","3001458964", "Carl@hotmail.com","CR 50-30","Medellin",1234,1,"o+","conductor"));
-        this.empleadoRepository.save(new Empleado("Juan", "Lopez","3121858554", "Ju@hotmail.com","CR 24-20","Cali",567,5,"A+","repartidor"));
+        this.empleadoRepository.save(new Empleado("Carlos", "Perez","3001458964", "Carl@hotmail.com","CR 50-30","Medellin","1234",1,"o+","COORDINADOR"));
+        this.empleadoRepository.save(new Empleado("Juan", "Lopez","3121858554", "Ju@hotmail.com","CR 24-20","Cali","567",5,"A+","repartidor"));
         return empleadoRepository.findAll().
                 stream()
                 .map(empleado -> new EmpleadoDTO(
@@ -77,7 +77,7 @@ public class EmpleadoService {
         return empleadosDTO;
     }
 
-    public EmpleadoDTO obtenerEmpleadoPorCedula(long cedula) {
+    public EmpleadoDTO obtenerEmpleadoPorCedula(String cedula) {
         Empleado empleadoEncontrado = empleadoRepository.findAll()
                 .stream()
                 .filter(empleado -> empleado.getCedula() == cedula)
@@ -93,7 +93,7 @@ public class EmpleadoService {
         }
     }
 
-    public EmpleadoDTO actualizarEmpleado(int cedula, EmpleadoDTO empleadoDtoActualizado) {
+    public EmpleadoDTO actualizarEmpleado( String cedula, EmpleadoDTO empleadoDtoActualizado) {
         // Buscamos al empleado por su cédula
         Optional<Empleado> empleadoExistente = empleadoRepository.findByCedula(cedula);
         if (!empleadoExistente.isPresent()) {
@@ -114,7 +114,7 @@ public class EmpleadoService {
     }
 
 
-    public void eliminarEmpleadoPorCedula(int cedula) {
+    public void eliminarEmpleadoPorCedula(String cedula) {
         Optional<Empleado> empleadoExistente = empleadoRepository.findByCedula(cedula);
 
         if (!empleadoExistente.isPresent()) {
@@ -142,7 +142,7 @@ public class EmpleadoService {
                 empleadoDTO.getNombre(),
                 empleadoDTO.getApellido(),
                 empleadoDTO.getCelular(),
-                "empleadoDTO.getCorreo()",
+                empleadoDTO.getCorreoElectronico(),
                 "empleadoDTO.getDireccion()",
                 "empleadoDTO.getCiudad()",
                 empleadoDTO.getCedula(),

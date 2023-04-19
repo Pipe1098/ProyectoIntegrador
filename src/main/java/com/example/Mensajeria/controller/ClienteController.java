@@ -1,6 +1,6 @@
-package com.example.Mensajeria.Controller;
+package com.example.Mensajeria.controller;
 
-import com.example.Mensajeria.Service.ClienteService;
+import com.example.Mensajeria.service.ClienteService;
 import com.example.Mensajeria.dto.ClienteDTO;
 import com.example.Mensajeria.model.Cliente;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -31,12 +32,14 @@ public class ClienteController {
     })
 
     @ApiOperation(value = "Crear un cliente", notes= "Crea un nuevo cliente en la base de datos con la información proporcionada en el cuerpo de la solicitud.", response = ClienteDTO.class)
+   // @PreAuthorize("hasRole('WRITE')")
     @PostMapping("/cliente")
     public ClienteDTO crear(@RequestBody Cliente cliente) {
         return this.clienteService.crear(cliente);
     }
 
     @ApiOperation(value = "Crear clientes", notes= "Crea  una lista de clientes por defecto para probar la api.", response = ClienteDTO.class)
+    //@PreAuthorize("hasRole('READ')")
     @PostMapping("/clientes")
     public ResponseEntity<Cliente> crearClientes() {
         this.clienteService.crearClientes();
@@ -48,9 +51,9 @@ public class ClienteController {
         List<ClienteDTO> clientes = this.clienteService.obtenerTodosLosClientes();
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
-
+    //@PreAuthorize("hasRole('USER')")
     @PutMapping("/cliente/{cedula}")
-    public ResponseEntity<ClienteDTO> actualizarCliente(@PathVariable int cedula, @RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<ClienteDTO> actualizarCliente(@PathVariable String cedula, @RequestBody ClienteDTO clienteDTO) {
         ClienteDTO clienteActualizado = clienteService.actualizarCliente(cedula,clienteDTO);
         if (clienteActualizado!= null) {
             return ResponseEntity.ok(clienteActualizado);
@@ -60,7 +63,7 @@ public class ClienteController {
     }
 
     @GetMapping("cliente/{cedula}")
-    public ResponseEntity<ClienteDTO> obtenerClientePorCedula(@PathVariable long cedula) {
+    public ResponseEntity<ClienteDTO> obtenerClientePorCedula(@PathVariable String cedula) {
        ClienteDTO clienteEncontrado= clienteService.obtenerClientePorCedula(cedula);
         if (clienteEncontrado!= null) {
             return ResponseEntity.ok(clienteEncontrado);
@@ -69,7 +72,7 @@ public class ClienteController {
         }
     }
     @DeleteMapping("cliente/{cedula}")
-    public ResponseEntity<Void> eliminarCliente(@PathVariable("cedula") int cedula) {
+    public ResponseEntity<Void> eliminarCliente(@PathVariable("cedula") String cedula) {
         this.clienteService.eliminarClientePorCedula(cedula);
         return ResponseEntity.noContent().build();
     }

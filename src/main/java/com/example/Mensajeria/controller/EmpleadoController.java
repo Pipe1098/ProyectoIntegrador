@@ -1,7 +1,7 @@
-package com.example.Mensajeria.Controller;
+package com.example.Mensajeria.controller;
 
 
-import com.example.Mensajeria.Service.EmpleadoService;
+import com.example.Mensajeria.service.EmpleadoService;
 import com.example.Mensajeria.dto.EmpleadoDTO;
 import com.example.Mensajeria.model.Empleado;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +23,7 @@ public class EmpleadoController {
 
 
     @GetMapping("/empleado/{cedula}")
-    public ResponseEntity<EmpleadoDTO> obtenerEmpleadoPorCedula(@PathVariable long cedula) {
+    public ResponseEntity<EmpleadoDTO> obtenerEmpleadoPorCedula(@PathVariable String cedula) {
         EmpleadoDTO empleado = empleadoService.obtenerEmpleadoPorCedula(cedula);
         if (empleado != null) {
             return ResponseEntity.ok(empleado);
@@ -50,7 +50,7 @@ public class EmpleadoController {
     }
 
     @PutMapping("/empleado/{cedula}")
-    public ResponseEntity<EmpleadoDTO> actualizarEmpleado(@PathVariable int cedula, @RequestBody EmpleadoDTO empleadoDTO) {
+    public ResponseEntity<EmpleadoDTO> actualizarEmpleado(@PathVariable String cedula, @RequestBody EmpleadoDTO empleadoDTO) {
         EmpleadoDTO empleadoActualizado = empleadoService.actualizarEmpleado(cedula,empleadoDTO);
         if (empleadoActualizado != null) {
             return ResponseEntity.ok(empleadoActualizado);
@@ -60,7 +60,7 @@ public class EmpleadoController {
     }
 
     @DeleteMapping("empleado/{cedula}")
-    public ResponseEntity<Void> eliminarEmpleado(@PathVariable("cedula") int cedula) {
+    public ResponseEntity<Void> eliminarEmpleado(@PathVariable("cedula") String cedula) {
         this.empleadoService.eliminarEmpleadoPorCedula(cedula);
             return ResponseEntity.noContent().build();
     }

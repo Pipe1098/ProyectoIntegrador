@@ -6,9 +6,9 @@ public class ClienteDTO {
     private String apellido;
     private String celular;
     private String correo;
-    private int cedula;
+    private String cedula;
 
-    public ClienteDTO(String nombre, String apellido, String celular, String correo, int cedula) {
+    public ClienteDTO(String nombre, String apellido, String celular, String correo, String cedula) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.celular = celular;
@@ -35,7 +35,7 @@ public class ClienteDTO {
         return correo;
     }
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 

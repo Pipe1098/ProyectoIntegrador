@@ -19,7 +19,7 @@ public class Empleado extends Usuario {
 
 
     // Constructor con parámetros
-    public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, int cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
+    public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, String cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
         this.antigueadadEnEmpresa = antigueadadEnEmpresa;
         this.rh = rh;

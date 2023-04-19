@@ -1,4 +1,4 @@
-package com.example.Mensajeria.Service;
+package com.example.Mensajeria.service;
 
 import com.example.Mensajeria.dto.ClienteDTO;
 
@@ -38,22 +38,21 @@ public class ClienteService {
     }
 
     public boolean validarCliente(Cliente cliente) {
-        if (cliente.getCedula()==0) {
-            // La cédula no es numérica o es nula
-            return false;
+        if (cliente.getCedula()==null|| !cliente.getCedula().matches("^\\d{10}$")) {
+            throw new ApiRequestException("Cedula: " + cliente.getCedula()+ "no permitida");
         }
 
         if (cliente.getNombre() == null || cliente.getNombre().isEmpty() || cliente.getApellido() == null || cliente.getApellido().isEmpty()) {
             // El nombre o el apellido están vacíos o son nulos
-            return false;
+            throw new ApiRequestException("El nombre o el apellido están vacíos o son nulos");
         }
 
         return true;
     }
 
     public List<ClienteDTO> crearClientes() {
-        this.clienteRepository.save(new Cliente("Carlos", "Perez","3001458964", "Carlos@hotmail.com","CR 50-30","Medellin",45585,"CRA 20 70"));
-        this.clienteRepository.save(new Cliente("Andres", "Montoya","3014589442", "example@hotmail.com","CR 80-20","Pereira",456789,"CRA 62 43"));
+        this.clienteRepository.save(new Cliente("Carlos", "Perez","3001458964", "Carlos@hotmail.com","CR 50-30","Medellin","4558589409","CRA 20 70"));
+        this.clienteRepository.save(new Cliente("Andres", "Montoya","3014589442", "example@hotmail.com","CR 80-20","Pereira","1234567895","CRA 62 43"));
         return clienteRepository.findAll().
                 stream()
                 .map(cliente -> new ClienteDTO(
@@ -73,7 +72,7 @@ public class ClienteService {
                         cliente.getCedula())).collect(Collectors.toList());
     }
 
-    public ClienteDTO obtenerClientePorCedula(long cedula) {
+    public ClienteDTO obtenerClientePorCedula(String cedula) {
         Cliente clienteEncontrado = clienteRepository.findAll()
                 .stream()
                 .filter(cliente -> cliente.getCedula() == cedula)
@@ -89,7 +88,7 @@ public class ClienteService {
         }
     }
 
-    public ClienteDTO actualizarCliente(int cedula, ClienteDTO clienteDTO) {
+    public ClienteDTO actualizarCliente(String cedula, ClienteDTO clienteDTO) {
         Optional<Cliente> optionalCliente = clienteRepository.findByCedula(cedula);
         if (optionalCliente.isPresent()) {
             Cliente cliente = optionalCliente.get();
@@ -104,7 +103,7 @@ public class ClienteService {
         }
     }
 
-    public void eliminarClientePorCedula(int cedula) {
+    public void eliminarClientePorCedula(String cedula) {
         Optional<Cliente> clienteExistente = clienteRepository.findByCedula(cedula);
 
         if (!clienteExistente.isPresent()) {

@@ -29,13 +29,13 @@ public abstract class Usuario {
     protected String ciudad;
 
     @Column(nullable = false, unique = true)
-    protected int cedula;
+    protected String cedula;
 
     // Constructor vacío requerido por JPA
     public Usuario() {}
 
     // Constructor con parámetros
-    public Usuario(String nombre, String apellido, String celular, String correo, String direccion, String ciudad,int cedula) {
+    public Usuario(String nombre, String apellido, String celular, String correo, String direccion, String ciudad,String cedula) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.celular = celular;
@@ -73,7 +73,7 @@ public abstract class Usuario {
         return ciudad;
     }
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
@@ -101,7 +101,7 @@ public abstract class Usuario {
         this.ciudad = ciudad;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 }

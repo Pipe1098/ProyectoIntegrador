@@ -7,7 +7,8 @@ import javax.persistence.*;
 public class Paquete {
 
     @Id
-    private String idPaquete;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idPaquete;
 
     @Column(nullable = false)
     private String tipoPaquete;
@@ -22,23 +23,26 @@ public class Paquete {
     public Paquete() {}
 
     // Constructor con parámetros
-    public Paquete(String idPaquete, String tipoPaquete, double peso, double valorDeclarado) {
-        this.idPaquete = idPaquete;
+    public Paquete(String tipoPaquete, double peso, double valorDeclarado) {
         this.tipoPaquete = tipoPaquete;
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;
     }
 
-    public String getIdPaquete() {
-        return idPaquete;
-    }
+    public enum TipoPaquete {
 
-    public void setIdPaquete(String idPaquete) {
-        this.idPaquete = idPaquete;
-    }
+        LIVIANO(1),
+        MEDIANO(2),
+        GRANDE(3);
 
+        private int valor;
+
+        TipoPaquete(int valor) {
+            this.valor = valor;
+        }
+    }
     public String getTipoPaquete() {
-        return tipoPaquete;
+        return this.tipoPaquete;
     }
 
     public void setTipoPaquete(String tipoPaquete) {
