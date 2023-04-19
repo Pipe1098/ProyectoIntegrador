@@ -33,7 +33,7 @@ public class PaqueteService {
                 .collect(Collectors.toList());
     }
 
-    public PaqueteDTO findById(String id) {
+    public PaqueteDTO findById(Long id) {
         Paquete paquete = paqueteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Paquete no encontrado con ID: " + id));
         PaqueteDTO paqueteDTO = PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);
@@ -50,7 +50,7 @@ public class PaqueteService {
         return paqueteDTO;
     }
 
-    public PaqueteDTO update(String id, PaqueteDTO paqueteDTO) {
+    public PaqueteDTO update(Long id, PaqueteDTO paqueteDTO) {
         Paquete paquete = paqueteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Paquete no encontrado con ID: " + id));
         //paquete.setTipoPaquete(paqueteDTO.getTipoPaquete());
@@ -60,7 +60,7 @@ public class PaqueteService {
         return PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);
     }
 
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         if (!paqueteRepository.existsById(id)) {
             throw new EntityNotFoundException("Paquete no encontrado con ID: " + id);
         }

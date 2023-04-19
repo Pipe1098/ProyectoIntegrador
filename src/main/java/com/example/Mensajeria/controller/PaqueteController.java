@@ -27,7 +27,7 @@ public class PaqueteController {
     }
 
     @GetMapping("/paquete/{id}")
-    public PaqueteDTO getPaqueteById(@PathVariable String id) {
+    public PaqueteDTO getPaqueteById(@PathVariable Long id) {
         return paqueteService.findById(id);
     }
 
@@ -38,12 +38,12 @@ public class PaqueteController {
     }
 
     @PutMapping("/paquete/{id}")
-    public PaqueteDTO updatePaquete(@PathVariable String id, @RequestBody PaqueteDTO paqueteDTO) {
+    public PaqueteDTO updatePaquete(@PathVariable Long id, @RequestBody PaqueteDTO paqueteDTO) {
         return paqueteService.update(id, paqueteDTO);
     }
 
     @DeleteMapping("/paquete/{id}")
-    public void deletePaqueteById(@PathVariable String id) {
+    public void deletePaqueteById(@PathVariable Long id) {
         paqueteService.deleteById(id);
     }
 }
