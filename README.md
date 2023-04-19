@@ -1,6 +1,223 @@
-# ProyectoIntegrador
-Proyecto de profundizacion backend con Java (POO, SOLID, design patterns, Spring)
-aqui se busca ayudar a una empresa de envíos a gestionar información para mejorar sus procesos.
+# ProyectoIntegrador: API de Mensajería 📦📬
+Esta API proporciona funcionalidades para gestionar envíos de paquetes de una empresa de mensajeria. Desarrollado en Java usando SpringBoot, JPA, Swagger, Spring Security, MySQL, y Junit para realizar pruebas unitarias.
+
+## Instalación 🚀
+
+1. Clonar el repositorio: `git clone https://github.com/Pipe1098/ProyectoIntegrador.git`
+2. Abra el proyecto con su IDE preferido (Eclipse, IntelliJ, etc.).
+3. Configure el archivo application.properties en la ruta src/main/resources para conectarse a la base de datos H2 en memoria. Puede dejar la configuración por defecto o cambiarla según sus necesidades.
+4. Ejecute el comando gradle build para descargar las dependencias del proyecto y compilarlo.
+5. Ejecute el comando gradle bootRun para iniciar la aplicación.
+
+## Uso 🛠️
+
+La aplicación está configurada para ejecutarse en http://localhost:8080.
+Pudes probar la API mediante el siguiente link: 
+
+- https://api-reservas-hotel-production.up.railway.app/swagger-ui/index.html#/
+
+- Usando los siguientes datos de autenticación:
+
+  Usuario: luis
+
+  Contraseña: 123
+
+Tambien puede probar la API utilizando una herramienta como Insomnia. Estos son algunos ejemplos de solicitudes que puede realizar:
+
+## 🧑‍💼 Endpoint: POST /URL: http://localhost:8080/api/v1/cliente
+ ### Registra un nuevo cliente en el sistema.
+- Cuerpo de la solicitud /json: 
+```json
+{
+    "cedula":"cedula",
+    "nombre":"nombre",
+    "apellido":"apellido",
+    "direccion":"direccion",
+    "edad":"edad",
+    "correoElectronico":"correoElectronico",
+}
+```
+-Ejemplo de respuesta exitosa:
+```json
+{
+    "id": 1,
+    "cedula": "123456789",
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "direccion": "Av. 10 de Agosto N24-17 y Veintimilla",
+    "edad": 35,
+    "correoElectronico": "juan.perez@example.com"
+}
+```
+## 👷🏻‍♂️ 📔 👨‍👩‍👧‍👧 POST /URL: http://localhost:8080/api/v1/empleado
+### Registra un nuevo empleado en el sistema.
+- Cuerpo de la solicitud /json: 
+```json
+{
+    "cedula":"cedula",
+    "nombre":"nombre",
+    "apellido":"apellido",
+    "direccion":"direccion",
+    "edad":"edad",
+    "correoElectronico":"correoElectronico",
+}
+```
+-Ejemplo de respuesta exitosa:
+```json
+{
+    "id": 1,
+    "cedula": "123456789",
+    "nombre": "Pedro",
+    "apellido": "Pérez",
+    "direccion": "Av. 10 de octubre N242-19 y Veintimilla",
+    "edad": 45,
+    "correoElectronico": "pedro.perez@example.com"
+}
+```
+## 📦✅ Endpoint: POST/URL: http://localhost:8080/api/v1/envio
+### Crea un nuevo envío.
+
+Parámetros:
+* cedularequerido): la cedula del cliente (debe ser único)
+ * nombreDestinatario (requerido): el nombre completo del destinatario
+* direccionDestinatario (requerido): la dirección del destinatario
+* celDestinatario (requerido): el teléfono del destinatario
+* valorDeclarado (requerido): valor asignado al paquete
+* pesoPaquete (requerido): el peso del paquete en kilogramos (debe ser mayor a 0)
+
+- Ejemplo de la petición:
+```json
+{
+  "cedula": "12345678",
+  "nombreDestinatario": "Maria Rodriguez",
+  "direccionDestinatario": "Avenida 456, Ciudad",
+  "celDestinatario": "555-4321",
+  "valorDeclarado": 100,
+  "pesoPaquete ": 5
+}
+```
+- Ejemplo de respuesta:
+Status code: 200 OK
+Content-Type: application/json
+
+```json
+{
+ "numeroGuia":"f7a20c7df5", "estadoEnvio":"RECIBIDO"
+}
+```
+
+## 📜📋 Endpoint: GET/URL: http://localhost:8080/api/v1/envios 
+### Recupera todos los envíos existentes.
+
+- Ejemplo de respuesta exitoso:
+
+Status code: 200 OK
+Content-Type: application/json
+```json
+[
+  {
+    "numeroGuia": "1234567890",
+    "nombreDestinatario": "Juan Perez",
+    "direccionDestinatario": "Calle 123, Ciudad",
+    "telefonoDestinatario": "555-1234",
+    "descripcionPaquete": "Caja grande",
+    "pesoPaquete": 2.5,
+    "fechaEnvio": "2022-04-18T18:25:43.511Z",
+    "estadoEnvio": "EN_TRANSITO"
+  },
+  {
+    "numeroGuia": "0987654321",
+    "nombreDestinatario": "Maria Rodriguez",
+    "direccionDestinatario": "Avenida 456, Ciudad",
+    "telefonoDestinatario": "555-4321",
+    "descripcionPaquete": "Sobre pequeño",
+    "pesoPaquete": 0.5,
+    "fechaEnvio": "2022-04-19T10:14:59.123Z",
+    "estadoEnvio": "ENTREGADO"
+  }
+   ...
+]
+```
+## 📂📦🔍Endpoint: GET/URL: http://localhost:8080/api/v1/envio/numGuia
+### Recupera un envío existente por número de guía.
+
+Parámetros
+numeroGuia (requerido): el número de guía del envío a buscar.
+- Ejemplo de la peticion:
+```json
+{
+  "numeroGuia": "abc4567890"
+}
+```
+- Ejemplo de respuesta exitoso:
+
+Status code: 200 OK
+Content-Type: application/json
+```json
+{
+  "numeroGuia": "abc4567890",
+  "nombreDestinatario": "Juan Perez",
+  "direccionDestinatario": "Calle 123, Ciudad",
+  "telefonoDestinatario": "555-1234",
+  "descripcionPaquete": "Caja grande",
+  "pesoPaquete": 2.5,
+  "fechaEnvio": "2022-04-18T18:25:43.511Z",
+  "estadoEnvio": "EN_RUTA"
+}
+```
+
+##  🔄💾 Endpoint: PUT/URL: http://localhost:8080/api/v1/envio/estado
+### Actualizar estado de envio.
+- Ejemplo de petición:
+```json
+{
+  "cedulaEmpleado": "string",
+  "estado": "ENTREGADO",
+  "numGuia": "adaf52455"
+}
+```
+- Ejemplo de respuesta:
+```json
+{
+  "estado": "ENTREGADO",
+  "numeroGuia": "adaf52455"
+}
+```
+## 🧪👀 Endpoint: GET/URL: http://localhost:8080/api/v1/envios/filtrar
+### Filtra los envios por determinado tipo de estado
+Requiere la cedula del empleado y el estado al cual se quiere actualizar (por medio de un RequestParam)
+
+- Ejemplo de respuesta:
+```json
+[
+  {
+    "cedula": "2156161616",
+    "celReceptor": "3002569874",
+    "ciudadDestino": "Cali",
+    "ciudadOrigen": "Medellin",
+    "dirDestino": "cr 45-52",
+    "horaEntrega": "2023-04-19T19:01:43.955Z",
+    "nombreReceptor": "Juan",
+    "peso": 10,
+    "valorDeclarado": 100,
+    "valorEnvio": 200
+     "EestadoEnvio": "RECIBIDO"
+  }
+]
+```
+## ❌🗑️ Endpoint: Delete/URL: http://localhost:8080/api/v1/envio/{id}
+### Este endpoint permite eliminar un envio por su id (numeroGuia)
+- Respuesta exitosa :
+
+Envio eliminado correctamente
+
+## 🤝Contribuir
+Si deseas contribuir al proyecto, por favor sigue los siguientes pasos:
+1. Haz un fork del repositorio
+2. Crea una nueva rama con la funcionalidad que deseas agregar
+3. Realiza tus cambios
+4. Haz un pull request hacia la rama principal del repositorio
+## 📃Licencia
+Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE.md](LICENSE.md) para más detalles.
 
 
-Por: Luis Felipe Penagos Bedoya.
