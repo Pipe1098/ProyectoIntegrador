@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Table(name = "clientes")
 public class Cliente extends Usuario {
 
-    @Column(nullable = false)
-    private String direccionEnvio;
+    /*@Column(nullable = false)
+    private String direccionEnvio;*/
 
     // Constructor vacío requerido por JPA
     public Cliente() {}
@@ -19,10 +19,10 @@ public class Cliente extends Usuario {
     // Constructor con parámetros
     public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, String cedula, String direccionEnvio) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
-        this.direccionEnvio = direccionEnvio;
+
     }
 
-    @Override
+   /* @Override
     public String getNombre() {
         return super.getNombre();
     }
@@ -55,15 +55,15 @@ public class Cliente extends Usuario {
     @Override
     public String getCedula() {
         return super.getCedula();
-    }
+    }*/
 
-    public String getDireccionEnvio() {
+/*    public String getDireccionEnvio() {
         return direccionEnvio;
     }
 
     public void setDireccionEnvio(String direccionEnvio) {
         this.direccionEnvio = direccionEnvio;
-    }
+    }*/
 
     public void setNombre(String nombre) {
         this.nombre=nombre;

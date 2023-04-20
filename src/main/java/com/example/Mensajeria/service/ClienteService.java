@@ -37,7 +37,7 @@ public class ClienteService {
 
     public boolean validarCliente(ClienteDTO cliente) {
         if (cliente.getCedula() == null || !cliente.getCedula().matches("^\\d{10}$")) {
-            throw new ApiRequestException("Cedula: " + cliente.getCedula() + "no permitida");
+            throw new ApiRequestException("Cedula:" + cliente.getCedula() + " no permitida");
         }
 
         if (cliente.getNombre() == null || cliente.getNombre().isEmpty() || cliente.getApellido() == null || cliente.getApellido().isEmpty()) {
