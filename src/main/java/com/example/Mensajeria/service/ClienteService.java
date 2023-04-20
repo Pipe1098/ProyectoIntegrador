@@ -72,17 +72,18 @@ public class ClienteService {
     }
 
     public ClienteDTO obtenerClientePorCedula(String cedula) {
-        Cliente clienteEncontrado = clienteRepository.findAll()
+        Optional<Cliente> clienteEncontrado = clienteRepository.findAll()
                 .stream()
                 .filter(cliente -> cliente.getCedula().equalsIgnoreCase(cedula))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
 
-        if (clienteEncontrado.getCedula() == null) {
+
+        if (!clienteEncontrado.isPresent()) {
             // Manejo del caso en que no se encuentra el cliente
-            return null;
+            throw new ApiRequestException("El cliente con la cedula"+cedula+"no se encuentra registrado.");
         } else {
-            ClienteDTO clienteDTO = new ClienteDTO(clienteEncontrado.getNombre(), clienteEncontrado.getApellido(), clienteEncontrado.getCelular(), clienteEncontrado.getCorreo(), clienteEncontrado.getCedula(), clienteEncontrado.getCiudad(), clienteEncontrado.getDireccion());
+            ClienteDTO clienteDTO = new ClienteDTO(clienteEncontrado.get().getNombre(), clienteEncontrado.get().getApellido(), clienteEncontrado.get().getCelular(),
+                    clienteEncontrado.get().getCorreo(), clienteEncontrado.get().getCedula(), clienteEncontrado.get().getCiudad(), clienteEncontrado.get().getDireccion());
             return clienteDTO;
         }
     }
