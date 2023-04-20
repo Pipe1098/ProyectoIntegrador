@@ -27,7 +27,7 @@ public class ClienteService {
     public ClienteDTO crear(ClienteDTO clientedto) {
         if (validarCliente(clientedto)) {
             Cliente cliente1 = new Cliente(clientedto.getNombre(), clientedto.getApellido(), clientedto.getCelular(),
-                    clientedto.getCorreo(), clientedto.getDireccion(), clientedto.getCiudad(), clientedto.getCedula(), "1");
+                    clientedto.getCorreo(), clientedto.getDireccion(), clientedto.getCiudad(), clientedto.getCedula());
             this.clienteRepository.save(cliente1);
             return clientedto;
         } else {
@@ -49,8 +49,8 @@ public class ClienteService {
     }
 
     public List<ClienteDTO> crearClientes() {
-        this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409", "CRA 20 70"));
-        this.clienteRepository.save(new Cliente("Andres", "Montoya", "3014589442", "example@hotmail.com", "CR 80-20", "Pereira", "1234567895", "CRA 62 43"));
+        this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409"));
+        this.clienteRepository.save(new Cliente("Andres", "Montoya", "3014589442", "example@hotmail.com", "CR 80-20", "Pereira", "1234567895"));
         return clienteRepository.findAll().
                 stream()
                 .map(cliente -> new ClienteDTO(

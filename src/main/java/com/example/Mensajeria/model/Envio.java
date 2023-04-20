@@ -20,7 +20,7 @@ public class Envio {
 
     @ManyToOne
     private Cliente cliente;
-
+    private String cedula;
     private String ciudadOrigen;
     private String ciudadDestino;
     private String dirDestino;
@@ -28,13 +28,15 @@ public class Envio {
     private String celReceptor;
     private LocalDateTime horaEntrega;
     private EnvioService.EstadoEnvio estadoEnvio;
+    private double valorDeclarado;
+    private double peso;
     private double valorEnvio;
 
     @OneToOne
     private Paquete paquete;
 
 
-    public Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime horaEntrega, EnvioService.EstadoEnvio estadoEnvio, double valorEnvio, Paquete paquete) {
+ /*   public Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime horaEntrega, EnvioService.EstadoEnvio estadoEnvio, double valorEnvio, Paquete paquete) {
         this.cliente = cliente;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
@@ -45,7 +47,7 @@ public class Envio {
         this.estadoEnvio = estadoEnvio;
         this.valorEnvio = valorEnvio;
         this.paquete = paquete;
-    }
+    }*/
 // Métodos de la clase
 
   /*  public String generarNumGuia(){

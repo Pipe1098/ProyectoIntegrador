@@ -93,9 +93,9 @@ public class EnvioService {
         LocalDateTime fecha = generarFechaAleatoria();
 
         Paquete paquete = new Paquete(tipoPaquete, envioDTO.getPeso(), envioDTO.getValorDeclarado());
-        Envio newEnvio = new Envio(codigo, newCliente, envioDTO.getCiudadOrigen(), envioDTO.getCiudadDestino(),
+        Envio newEnvio = new Envio(codigo, newCliente, envioDTO.getCedula(),envioDTO.getCiudadOrigen(), envioDTO.getCiudadDestino(),
                 envioDTO.getDirDestino(), envioDTO.getNombreReceptor(), envioDTO.getCelReceptor(),
-                fecha, EstadoEnvio.RECIBIDO, valorEnvio, paquete);
+                fecha, EstadoEnvio.RECIBIDO,envioDTO.getValorDeclarado(),envioDTO.getPeso(), valorEnvio, paquete);
 
         paqueteRepository.save(paquete);
         envioRepository.save(newEnvio);
