@@ -78,32 +78,29 @@ public class EnvioService {
 
 
     public String generate(EnvioDTO envioDTO) {
-        try {
-            if(envioDTO.getCedula()==null || envioDTO.getCiudadDestino()==null ||
-                    envioDTO.getCiudadOrigen()==null || envioDTO.getDirDestino()==null
-                    || envioDTO.getNombreReceptor()==null || envioDTO.getCelReceptor()==null
-            || envioDTO.getValorDeclarado()==0.0|| envioDTO.getPeso()==0.0 ){
-                throw new ApiRequestException("Hace falta llenar todos los campos");
-            }
-            Cliente newCliente = validarCliente(envioDTO.getCedula());
-            String tipoPaquete = asignarTipo(envioDTO.getPeso());
-            String codigo = generarNumGuia();
-            Double valorEnvio = ValorEnvio(tipoPaquete);
-            LocalDateTime fecha = generarFechaAleatoria();
 
-            Paquete paquete = new Paquete(tipoPaquete, envioDTO.getPeso(), envioDTO.getValorDeclarado());
-            Envio newEnvio = new Envio(codigo, newCliente, envioDTO.getCiudadOrigen(), envioDTO.getCiudadDestino(),
-                    envioDTO.getDirDestino(), envioDTO.getNombreReceptor(), envioDTO.getCelReceptor(),
-                    fecha, EstadoEnvio.RECIBIDO, valorEnvio, paquete);
-
-            paqueteRepository.save(paquete);
-            envioRepository.save(newEnvio);
-
-            return newEnvio.toString();
-
-        } catch (Exception e) {
-            throw new ApiRequestException("No se pudo generar el envio correctamente");
+        validarCliente(envioDTO.getCedula());
+        if (envioDTO.getCiudadDestino() == null ||
+                envioDTO.getCiudadOrigen() == null || envioDTO.getDirDestino() == null
+                || envioDTO.getNombreReceptor() == null || envioDTO.getCelReceptor() == null
+                || envioDTO.getValorDeclarado() == 0.0 || envioDTO.getPeso() == 0.0) {
+            throw new ApiRequestException("Revisar, hace falta llenar algunos de los campos o peso y valor son igual a 0");
         }
+        Cliente newCliente = validarCliente(envioDTO.getCedula());
+        String tipoPaquete = asignarTipo(envioDTO.getPeso());
+        String codigo = generarNumGuia();
+        Double valorEnvio = ValorEnvio(tipoPaquete);
+        LocalDateTime fecha = generarFechaAleatoria();
+
+        Paquete paquete = new Paquete(tipoPaquete, envioDTO.getPeso(), envioDTO.getValorDeclarado());
+        Envio newEnvio = new Envio(codigo, newCliente, envioDTO.getCiudadOrigen(), envioDTO.getCiudadDestino(),
+                envioDTO.getDirDestino(), envioDTO.getNombreReceptor(), envioDTO.getCelReceptor(),
+                fecha, EstadoEnvio.RECIBIDO, valorEnvio, paquete);
+
+        paqueteRepository.save(paquete);
+        envioRepository.save(newEnvio);
+
+        return newEnvio.toString();
     }
 
     private Double ValorEnvio(String tipoPaquete) {
@@ -132,13 +129,24 @@ public class EnvioService {
 
     private Cliente validarCliente(String cedula) {
         if (cedula == null || !cedula.matches("^\\d{10}$")) {
-            throw new ApiRequestException("Cedula: " + cedula + "no permitida");
+            throw new ApiRequestException("Cedula:" + cedula + " no permitida");
         }
         Optional<Cliente> cliente = clienteRepository.findByCedula(cedula);
         if (cliente.isPresent()) {
             return cliente.get();
         }
         throw new ApiRequestException("El cliente con cedula " + cedula + " debe de estar registrado para poder enviar un paquete");
+    }
+
+    private Empleado validarEmpleado(String cedula) {
+        if (cedula == null || !cedula.matches("^\\d{10}$")) {
+            throw new ApiRequestException("Cedula:" + cedula + " no permitida");
+        }
+        Optional<Empleado> empleado = empleadoRepository.findByCedula(cedula);
+        if (empleado.isPresent()) {
+            return empleado.get();
+        }
+        throw new ApiRequestException("El empleado con cedula " + cedula + " debe de estar registrado para poder enviar un paquete");
     }
 
     public EnvioDTO update(String id, EnvioDTO envioDTO) {
@@ -151,15 +159,18 @@ public class EnvioService {
             envio.setNombreReceptor(envioDTO.getNombreReceptor());
             envio.setCelReceptor(envioDTO.getCelReceptor());
             envio.setHoraEntrega(envioDTO.getHoraEntrega());
-            //Paquete paq= new Paquete(asignarTipo(envioDTO.getPeso()), envioDTO.getPeso(), envioDTO.getValorDeclarado());
-            // envio.setPaquete(paq);
+            Paquete paq = new Paquete(asignarTipo(envioDTO.getPeso()), envioDTO.getPeso(), envioDTO.getValorDeclarado());
+            paqueteRepository.save(paq);
+            envio.setValorEnvio(ValorEnvio(paq.getTipoPaquete()));
+            envio.setPaquete(paq);
             envio = envioRepository.save(envio);
             Optional<Envio> envio1 = envioRepository.findById(envio.getNumeroGuia());
             return EnvioMapper.INSTANCE.envioToEnvioDTO(envio1.get());
-        }else {
-            throw new ApiRequestException("El empleado con cedula: "+envioDTO.getCedula()+" no trabaja en nuestra compania");
+        } else {
+            throw new ApiRequestException("El empleado con cedula: " + envioDTO.getCedula() + " no trabaja en nuestra compania");
         }
     }
+
     public class ActualizarEstadoResponse {
         private String numeroGuia;
         private EstadoEnvio estado;
@@ -210,7 +221,7 @@ public class EnvioService {
 
     public List<EnvioDTO> filtrar(EstadoEnvio estado, String cedulaEmpleado) {
         Optional<Empleado> empleado = this.empleadoRepository.findByCedula(cedulaEmpleado);
-        if(empleado.isPresent()) {
+        if (empleado.isPresent()) {
             List<Envio> envios = this.envioRepository.findByEstadoEnvio(estado);
             List<EnvioDTO> enviosDTO = envios.stream()
                     .map(envio -> EnvioMapper.INSTANCE.envioToEnvioDTO(envio))
@@ -248,11 +259,12 @@ public class EnvioService {
         }
     }
 
-    public void deleteById(String id) {
+    public String deleteById(String id) {
         if (!envioRepository.existsById(id)) {
             throw new ApiRequestException("Envío no encontrado con ID: " + id);
         }
         envioRepository.deleteById(id);
+        return "Envio eliminado exitosamente";
     }
 }
 

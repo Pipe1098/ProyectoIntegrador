@@ -80,13 +80,13 @@ public class EmpleadoService {
     public EmpleadoDTO obtenerEmpleadoPorCedula(String cedula) {
         Empleado empleadoEncontrado = empleadoRepository.findAll()
                 .stream()
-                .filter(empleado -> empleado.getCedula() == cedula)
+                .filter(empleado -> empleado.getCedula().equalsIgnoreCase(cedula))
                 .findFirst()
                 .orElse(null);
 
         if (empleadoEncontrado == null) {
             // Manejo del caso en que no se encuentra el empleado
-            return null;
+            throw new ApiRequestException("Empleado no encontrado en la base de datos");
         } else {
             EmpleadoDTO empleadoDTO = convertirEmpleadoAEmpleadoDTO(empleadoEncontrado);
             return empleadoDTO;
@@ -114,13 +114,14 @@ public class EmpleadoService {
     }
 
 
-    public void eliminarEmpleadoPorCedula(String cedula) {
+    public String eliminarEmpleadoPorCedula(String cedula) {
         Optional<Empleado> empleadoExistente = empleadoRepository.findByCedula(cedula);
 
         if (!empleadoExistente.isPresent()) {
             throw new IllegalArgumentException("No se encontró ningún empleado con la cédula = "+cedula);
         }
         empleadoRepository.deleteById(empleadoExistente.get().getId());
+        return "Empleado eliminado exitosamente";
     }
 
     private EmpleadoDTO convertirEmpleadoAEmpleadoDTO(Empleado empleado) {

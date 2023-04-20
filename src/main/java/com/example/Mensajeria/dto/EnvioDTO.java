@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EnvioDTO {
 //
+    //private ClienteDTO clienteDTO;
     private String cedula;
     private String ciudadOrigen;
     private String ciudadDestino;
@@ -103,6 +104,14 @@ public class EnvioDTO {
     public void setHoraEntrega(LocalDateTime horaEntrega) {
         this.horaEntrega = horaEntrega;
     }
+
+  /*  public ClienteDTO getClienteDTO() {
+        return clienteDTO;
+    }
+
+    public void setClienteDTO(ClienteDTO clienteDTO) {
+        this.clienteDTO = clienteDTO;
+    }*/
 }
 
 

@@ -2,17 +2,13 @@ package com.example.Mensajeria.service;
 
 import com.example.Mensajeria.dto.ClienteDTO;
 
-import com.example.Mensajeria.dto.EmpleadoDTO;
 import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.Cliente;
 
-import com.example.Mensajeria.model.Empleado;
 import com.example.Mensajeria.repository.ClienteRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,25 +17,27 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private ClienteRepository clienteRepository;
+
     //private  ModelMapper modelMapper;
-@Autowired
+    @Autowired
     public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
-    public ClienteDTO crear(Cliente cliente) {
-        if (validarCliente(cliente)) {
-            ClienteDTO clienteDTO = new ClienteDTO(cliente.getNombre(), cliente.getApellido(), cliente.getCelular(), cliente.getCorreo(), cliente.getCedula());
-            this.clienteRepository.save(cliente);
-            return clienteDTO;
+    public ClienteDTO crear(ClienteDTO clientedto) {
+        if (validarCliente(clientedto)) {
+            Cliente cliente1 = new Cliente(clientedto.getNombre(), clientedto.getApellido(), clientedto.getCelular(),
+                    clientedto.getCorreo(), clientedto.getDireccion(), clientedto.getCiudad(), clientedto.getCedula(), "1");
+            this.clienteRepository.save(cliente1);
+            return clientedto;
         } else {
             throw new ApiRequestException("Cedula no numerica o el nombre o el apellido están vacíos o son nulos");
         }
     }
 
-    public boolean validarCliente(Cliente cliente) {
-        if (cliente.getCedula()==null|| !cliente.getCedula().matches("^\\d{10}$")) {
-            throw new ApiRequestException("Cedula: " + cliente.getCedula()+ "no permitida");
+    public boolean validarCliente(ClienteDTO cliente) {
+        if (cliente.getCedula() == null || !cliente.getCedula().matches("^\\d{10}$")) {
+            throw new ApiRequestException("Cedula: " + cliente.getCedula() + "no permitida");
         }
 
         if (cliente.getNombre() == null || cliente.getNombre().isEmpty() || cliente.getApellido() == null || cliente.getApellido().isEmpty()) {
@@ -51,8 +49,8 @@ public class ClienteService {
     }
 
     public List<ClienteDTO> crearClientes() {
-        this.clienteRepository.save(new Cliente("Carlos", "Perez","3001458964", "Carlos@hotmail.com","CR 50-30","Medellin","4558589409","CRA 20 70"));
-        this.clienteRepository.save(new Cliente("Andres", "Montoya","3014589442", "example@hotmail.com","CR 80-20","Pereira","1234567895","CRA 62 43"));
+        this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409", "CRA 20 70"));
+        this.clienteRepository.save(new Cliente("Andres", "Montoya", "3014589442", "example@hotmail.com", "CR 80-20", "Pereira", "1234567895", "CRA 62 43"));
         return clienteRepository.findAll().
                 stream()
                 .map(cliente -> new ClienteDTO(
@@ -60,30 +58,31 @@ public class ClienteService {
                         cliente.getApellido(),
                         cliente.getCelular(),
                         cliente.getCorreo(),
-                        cliente.getCedula()))
+                        cliente.getCedula(), cliente.getCiudad(), cliente.getDireccion()))
                 .collect(Collectors.toList());
     }
+
     public List<ClienteDTO> obtenerTodosLosClientes() {
         List<Cliente> clientes = clienteRepository.findAll();
         return clientes.stream().
                 map(cliente -> new ClienteDTO(
                         cliente.getNombre(), cliente.getApellido(),
                         cliente.getCelular(), cliente.getCorreo(),
-                        cliente.getCedula())).collect(Collectors.toList());
+                        cliente.getCedula(), cliente.getCiudad(), cliente.getDireccion())).collect(Collectors.toList());
     }
 
     public ClienteDTO obtenerClientePorCedula(String cedula) {
         Cliente clienteEncontrado = clienteRepository.findAll()
                 .stream()
-                .filter(cliente -> cliente.getCedula() == cedula)
+                .filter(cliente -> cliente.getCedula().equalsIgnoreCase(cedula))
                 .findFirst()
                 .orElse(null);
 
-        if (clienteEncontrado == null) {
+        if (clienteEncontrado.getCedula() == null) {
             // Manejo del caso en que no se encuentra el cliente
             return null;
         } else {
-            ClienteDTO clienteDTO = new ClienteDTO(clienteEncontrado.getNombre(), clienteEncontrado.getApellido(), clienteEncontrado.getCelular(), clienteEncontrado.getCorreo(), clienteEncontrado.getCedula());
+            ClienteDTO clienteDTO = new ClienteDTO(clienteEncontrado.getNombre(), clienteEncontrado.getApellido(), clienteEncontrado.getCelular(), clienteEncontrado.getCorreo(), clienteEncontrado.getCedula(), clienteEncontrado.getCiudad(), clienteEncontrado.getDireccion());
             return clienteDTO;
         }
     }
@@ -99,18 +98,19 @@ public class ClienteService {
             cliente = clienteRepository.save(cliente);
             return clienteDTO;
         } else {
-            throw new ApiRequestException("El cliente con cedula " + cedula+ " no se encuentra registrado.");
+            throw new ApiRequestException("El cliente con cedula " + cedula + " no se encuentra registrado.");
         }
     }
 
-    public void eliminarClientePorCedula(String cedula) {
+    public String eliminarClientePorCedula(String cedula) {
         Optional<Cliente> clienteExistente = clienteRepository.findByCedula(cedula);
 
         if (!clienteExistente.isPresent()) {
-            throw new IllegalArgumentException("No se encontró ningún cliente con la cédula = "+cedula);
+            throw new ApiRequestException("No se encontró ningún cliente con la cédula = " + cedula);
         }
         clienteRepository.deleteById(clienteExistente.get().getId());
+        return "Cliente eliminado correctamente.";
     }
-    }
+}
 
 

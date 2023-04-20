@@ -22,6 +22,41 @@ public class Cliente extends Usuario {
         this.direccionEnvio = direccionEnvio;
     }
 
+    @Override
+    public String getNombre() {
+        return super.getNombre();
+    }
+
+    @Override
+    public String getApellido() {
+        return super.getApellido();
+    }
+
+    @Override
+    public String getCelular() {
+        return super.getCelular();
+    }
+
+    @Override
+    public String getCorreo() {
+        return super.getCorreo();
+    }
+
+    @Override
+    public String getDireccion() {
+        return super.getDireccion();
+    }
+
+    @Override
+    public String getCiudad() {
+        return super.getCiudad();
+    }
+
+    @Override
+    public String getCedula() {
+        return super.getCedula();
+    }
+
     public String getDireccionEnvio() {
         return direccionEnvio;
     }
@@ -33,5 +68,6 @@ public class Cliente extends Usuario {
     public void setNombre(String nombre) {
         this.nombre=nombre;
     }
+
 }
 
