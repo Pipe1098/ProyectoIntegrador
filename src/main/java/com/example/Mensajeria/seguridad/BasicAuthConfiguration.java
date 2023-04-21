@@ -3,7 +3,6 @@ package com.example.Mensajeria.seguridad;
 
 
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -45,6 +44,7 @@ public class BasicAuthConfiguration {
 //                .requestMatchers("/admin").hasRole("ADMIN")
 //                .requestMatchers("/dba").hasAnyRole("DBA", "ADMIN")
                 .antMatchers(HttpMethod.POST).hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET).authenticated()
                 .and().csrf().disable().build();
     }
@@ -52,7 +52,7 @@ public class BasicAuthConfiguration {
 
 
 //    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//    public SecurityFilterChain1 securityFilterChain(HttpSecurity http) throws Exception {
 //        return http
 //                .httpBasic()
 //                .and().authorizeHttpRequests()
