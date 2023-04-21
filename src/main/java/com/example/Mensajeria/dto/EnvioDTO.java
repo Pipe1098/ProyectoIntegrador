@@ -13,6 +13,7 @@ public class EnvioDTO {
 //
     //private ClienteDTO clienteDTO;
     private String cedula;
+    private String cedulaEmpleado;
     private String ciudadOrigen;
     private String ciudadDestino;
     private String dirDestino;
@@ -89,6 +90,13 @@ public class EnvioDTO {
         this.peso = peso;
     }
 
+    public String getCedulaEmpleado() {
+        return cedulaEmpleado;
+    }
+
+    public void setCedulaEmpleado(String cedulaEmpleado) {
+        this.cedulaEmpleado = cedulaEmpleado;
+    }
 
 /*   public double getValorEnvio() {
         return valorEnvio;

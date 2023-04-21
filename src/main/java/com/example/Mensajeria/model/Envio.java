@@ -84,9 +84,12 @@ public class Envio {
     public Cliente getCliente() {
         return cliente;
     }
-
     public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+        this.cliente=cliente;
+    }
+
+    public void setClientep(String cedula) {
+        this.cliente.setCedula(cedula);
     }
 
     public String getCiudadOrigen() {
@@ -154,7 +157,7 @@ public class Envio {
     }
 
     public Paquete getPaquete() {
-        return paquete;
+        return this.paquete;
     }
 
     public void setPaquete(Paquete paquete) {

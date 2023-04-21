@@ -148,22 +148,24 @@ public class EnvioService {
     }
 
     public EnvioDTO update(String id, EnvioDTO envioDTO) {
-        if (empleadoRepository.findByCedula(envioDTO.getCedula()).isPresent()) {
+        if (empleadoRepository.findByCedula(envioDTO.getCedulaEmpleado()).isPresent()) {
             Envio envio = envioRepository.findById(id)
                     .orElseThrow(() -> new ApiRequestException("El numero de guia no se encuentra registrado"));
             envio.setCiudadOrigen(envioDTO.getCiudadOrigen());
-            envio.setCedulaEmpleado(envioDTO.getCedula());
+            envio.setCedulaEmpleado(envioDTO.getCedulaEmpleado());
+            envio.setClientep(envioDTO.getCedula());
             envio.setCiudadDestino(envioDTO.getCiudadDestino());
             envio.setDirDestino(envioDTO.getDirDestino());
             envio.setNombreReceptor(envioDTO.getNombreReceptor());
             envio.setCelReceptor(envioDTO.getCelReceptor());
             //envio.setHoraEntrega(envioDTO.getHoraEntrega());
             String tipoP=asignarTipo(envioDTO.getPeso());
-            envio.setValorDeclarado(envioDTO.getValorDeclarado());
-            envio.setValorEnvio(ValorEnvio(tipoP));
             Paquete paq = new Paquete(tipoP, envioDTO.getPeso(), envioDTO.getValorDeclarado());
-            paqueteRepository.save(paq);
+            envio.setValorDeclarado(envioDTO.getValorDeclarado());
             envio.setPaquete(paq);
+            paqueteRepository.save(paq);
+            envio.setValorEnvio(ValorEnvio(tipoP));
+            envio.setPeso(envioDTO.getPeso());
             envio = envioRepository.save(envio);
             Optional<Envio> envio1 = envioRepository.findById(envio.getNumeroGuia());
             return EnvioMapper.INSTANCE.envioToEnvioDTO(envio1.get());

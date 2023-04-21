@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-20T18:28:29-0500",
+    date = "2023-04-20T21:16:08-0500",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.12 (Oracle Corporation)"
 )
 public class EnvioMapperImpl implements EnvioMapper {
@@ -24,6 +24,9 @@ public class EnvioMapperImpl implements EnvioMapper {
         envioDTO.setDirDestino( envio.getDirDestino() );
         envioDTO.setNombreReceptor( envio.getNombreReceptor() );
         envioDTO.setCelReceptor( envio.getCelReceptor() );
+        envioDTO.setValorDeclarado( envio.getValorDeclarado() );
+        envioDTO.setPeso( envio.getPeso() );
+        envioDTO.setCedulaEmpleado( envio.getCedulaEmpleado() );
 
         return envioDTO;
     }
@@ -41,6 +44,9 @@ public class EnvioMapperImpl implements EnvioMapper {
         envio.setDirDestino( envioDTO.getDirDestino() );
         envio.setNombreReceptor( envioDTO.getNombreReceptor() );
         envio.setCelReceptor( envioDTO.getCelReceptor() );
+        envio.setCedulaEmpleado( envioDTO.getCedulaEmpleado() );
+        envio.setValorDeclarado( envioDTO.getValorDeclarado() );
+        envio.setPeso( envioDTO.getPeso() );
 
         return envio;
     }
