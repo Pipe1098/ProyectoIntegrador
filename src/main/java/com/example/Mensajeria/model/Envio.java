@@ -20,7 +20,7 @@ public class Envio {
 
     @ManyToOne
     private Cliente cliente;
-    private String cedula;
+    private String cedulaEmpleado;
     private String ciudadOrigen;
     private String ciudadDestino;
     private String dirDestino;
@@ -159,6 +159,30 @@ public class Envio {
 
     public void setPaquete(Paquete paquete) {
         this.paquete = paquete;
+    }
+
+    public String getCedulaEmpleado() {
+        return cedulaEmpleado;
+    }
+
+    public void setCedulaEmpleado(String cedulaEmpleado) {
+        this.cedulaEmpleado = cedulaEmpleado;
+    }
+
+    public double getValorDeclarado() {
+        return valorDeclarado;
+    }
+
+    public void setValorDeclarado(double valorDeclarado) {
+        this.valorDeclarado = valorDeclarado;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
     }
 
     @Override

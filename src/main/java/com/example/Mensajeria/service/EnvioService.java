@@ -113,11 +113,9 @@ public class EnvioService {
         }
     }
 
-    public List<EnvioDTO> findAll() {
+    public List<Envio> findAll() {
         List<Envio> envios = envioRepository.findAll();
-        return envios.stream()
-                .map(envio -> EnvioMapper.INSTANCE.envioToEnvioDTO(envio))
-                .collect(Collectors.toList());
+        return envios;
     }
 
     public Envio findById(String id) {
@@ -154,14 +152,17 @@ public class EnvioService {
             Envio envio = envioRepository.findById(id)
                     .orElseThrow(() -> new ApiRequestException("El numero de guia no se encuentra registrado"));
             envio.setCiudadOrigen(envioDTO.getCiudadOrigen());
+            envio.setCedulaEmpleado(envioDTO.getCedula());
             envio.setCiudadDestino(envioDTO.getCiudadDestino());
             envio.setDirDestino(envioDTO.getDirDestino());
             envio.setNombreReceptor(envioDTO.getNombreReceptor());
             envio.setCelReceptor(envioDTO.getCelReceptor());
-            envio.setHoraEntrega(envioDTO.getHoraEntrega());
-            Paquete paq = new Paquete(asignarTipo(envioDTO.getPeso()), envioDTO.getPeso(), envioDTO.getValorDeclarado());
+            //envio.setHoraEntrega(envioDTO.getHoraEntrega());
+            String tipoP=asignarTipo(envioDTO.getPeso());
+            envio.setValorDeclarado(envioDTO.getValorDeclarado());
+            envio.setValorEnvio(ValorEnvio(tipoP));
+            Paquete paq = new Paquete(tipoP, envioDTO.getPeso(), envioDTO.getValorDeclarado());
             paqueteRepository.save(paq);
-            envio.setValorEnvio(ValorEnvio(paq.getTipoPaquete()));
             envio.setPaquete(paq);
             envio = envioRepository.save(envio);
             Optional<Envio> envio1 = envioRepository.findById(envio.getNumeroGuia());
@@ -198,7 +199,8 @@ public class EnvioService {
     }
 
 
-    public ActualizarEstadoResponse actualizarEstado(String numGuia, String cedulaEmpleado, EstadoEnvio estado) {
+    public ActualizarEstadoResponse actualizarEstado(String numGuia, String cedulaEmpleado, String estado) {
+        String estadoUpper=estado.toUpperCase();
         Empleado empleado = empleadoRepository.findByCedula(cedulaEmpleado)
                 .orElseThrow(() -> new ApiRequestException("El empleado con cedula " + cedulaEmpleado + " no existe en nuestra compañia"));
 
@@ -209,24 +211,23 @@ public class EnvioService {
         Envio envio = envioRepository.findById(numGuia)
                 .orElseThrow(() -> new ApiRequestException("El numero guia no se encuentra registrado"));
 
-        if (!esEstadoValido(envio.getEstadoEnvio(), estado)) {
+        if (!esEstadoValido(envio.getEstadoEnvio(), EstadoEnvio.valueOf(estadoUpper))) {
             throw new ApiRequestException("El cambio de estado no cumple con las validaciones");
         }
-
-        envio.setEstadoEnvio(estado);
+        envio.setEstadoEnvio( EstadoEnvio.valueOf(estadoUpper));
         envioRepository.save(envio);
 
-        return new ActualizarEstadoResponse(numGuia, estado);
+        return new ActualizarEstadoResponse(numGuia,  EstadoEnvio.valueOf(estadoUpper));
     }
 
-    public List<EnvioDTO> filtrar(EstadoEnvio estado, String cedulaEmpleado) {
+    public List<Envio> filtrar(EstadoEnvio estado, String cedulaEmpleado) {
         Optional<Empleado> empleado = this.empleadoRepository.findByCedula(cedulaEmpleado);
         if (empleado.isPresent()) {
             List<Envio> envios = this.envioRepository.findByEstadoEnvio(estado);
             List<EnvioDTO> enviosDTO = envios.stream()
                     .map(envio -> EnvioMapper.INSTANCE.envioToEnvioDTO(envio))
                     .collect(Collectors.toList());
-            return enviosDTO;
+            return envios;
         }
         throw new ApiRequestException("El empleado con cedula " + cedulaEmpleado + " no existe en nuestra compañía");
     }
@@ -260,10 +261,11 @@ public class EnvioService {
     }
 
     public String deleteById(String id) {
-        if (!envioRepository.existsById(id)) {
+        Optional<Envio> envioExistente = envioRepository.findById(id);
+        if (!envioExistente.isPresent()) {
             throw new ApiRequestException("Envío no encontrado con ID: " + id);
         }
-        envioRepository.deleteById(id);
+        envioRepository.deleteById(envioExistente.get().getNumeroGuia());
         return "Envio eliminado exitosamente";
     }
 }

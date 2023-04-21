@@ -49,7 +49,7 @@ public class ClienteController {
         return new ResponseEntity("Se crearon las clientes por defecto.", HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Obtener clientes", notes = "Muestra todos los clientes registrados en la base de datos", response = ClienteDTO.class)
+    @ApiOperation(value = "Obtener clientes", notes = "Muestra todos los clientes registrados en la base de datos.", response = ClienteDTO.class)
     @GetMapping("/clientes")
     public ResponseEntity<List<ClienteDTO>> obtenerClientes() {
         List<ClienteDTO> clientes = this.clienteService.obtenerTodosLosClientes();
@@ -57,9 +57,9 @@ public class ClienteController {
     }
 
     //@PreAuthorize("hasRole('USER')")
-    @ApiOperation(value = "Actualizar cliente", notes = "Permite actualizar un cliente registrado en la base de datos", response = ClienteDTO.class)
+    @ApiOperation(value = "Actualizar cliente", notes = "Permite actualizar un cliente registrado en la base de datos.", response = ClienteDTO.class)
     @PutMapping("/cliente/{cedula}")
-    public ResponseEntity<ClienteDTO> actualizarCliente(@ApiParam(value = "Digite la cedula del cliente que necesita actualizar", required = true) @PathVariable String cedula, @RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<ClienteDTO> actualizarCliente(@ApiParam(value = "Digite la cedula del cliente que necesita actualizar.", required = true) @PathVariable String cedula, @RequestBody ClienteDTO clienteDTO) {
         ClienteDTO clienteActualizado = clienteService.actualizarCliente(cedula, clienteDTO);
         if (clienteActualizado != null) {
             return ResponseEntity.ok(clienteActualizado);

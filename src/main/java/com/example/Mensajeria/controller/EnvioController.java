@@ -24,9 +24,9 @@ public class EnvioController {
         this.envioService = envioService;
     }
 
-    @ApiOperation(value = "Obtener todos los envios", notes = "Permite obtener todos los envios de la base de datos.", response = EnvioDTO.class)
+    @ApiOperation(value = "Obtener todos los envios", notes = "Permite obtener todos los envios de la base de datos.", response = Envio.class)
     @GetMapping("/envios")
-    public List<EnvioDTO> findAll() {
+    public List<Envio> findAll() {
         return envioService.findAll();
     }
 
@@ -62,12 +62,12 @@ public class EnvioController {
         return ResponseEntity.ok(resultado);
     }
 
-    @ApiOperation(value = "Filtar por estado", notes = "Permite obtener todos los envios de la base de datos que estan en determinado estado (entregado, en_ruta o recibido).", response = EnvioDTO.class)
+    @ApiOperation(value = "Filtar por estado", notes = "Permite obtener todos los envios de la base de datos que estan en determinado estado (entregado, en_ruta o recibido).", response = Envio.class)
     @GetMapping("/envios/filtro")
-    public ResponseEntity<List<EnvioDTO>> filterByState(
+    public ResponseEntity<List<Envio>> filterByState(
             @RequestParam(name = "estado") EnvioService.EstadoEnvio estado,
             @RequestParam(name = "cedulaEmpleado") String cedulaEmpleado) {
-        List<EnvioDTO> envios = envioService.filtrar(estado, cedulaEmpleado);
+        List<Envio> envios = envioService.filtrar(estado, cedulaEmpleado);
         return ResponseEntity.ok(envios);
     }
 

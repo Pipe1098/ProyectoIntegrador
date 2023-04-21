@@ -2,6 +2,7 @@ package com.example.Mensajeria.controller;
 
 
 import com.example.Mensajeria.dto.ClienteDTO;
+import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.service.EmpleadoService;
 import com.example.Mensajeria.dto.EmpleadoDTO;
 import com.example.Mensajeria.model.Empleado;
@@ -32,7 +33,7 @@ public class EmpleadoController {
         if (empleado != null) {
             return ResponseEntity.ok(empleado);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new ApiRequestException("Empleado con cedula: " + cedula + " no encontrado en el sistema");
         }
     }
 
@@ -50,15 +51,15 @@ public class EmpleadoController {
         return new ResponseEntity("Se crearon las empleados por defecto.", HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Obtener empleados", notes = "Muestra todos los empleados registrados en la base de datos", response = EmpleadoDTO.class)
+    @ApiOperation(value = "Obtener empleados", notes = "Muestra todos los empleados registrados en la base de datos.", response = EmpleadoDTO.class)
     @GetMapping("/empleados")
     public List<EmpleadoDTO> getEmployees() {
         return empleadoService.obtenerTodosLosEmpleados();
     }
 
-    @ApiOperation(value = "Actulizar empleado", notes = "Permite actualizar un empleado registrado en la base de datos, por medio de su cedula", response = EmpleadoDTO.class)
+    @ApiOperation(value = "Actulizar empleado", notes = "Permite actualizar un empleado registrado en la base de datos, por medio de su cedula.", response = EmpleadoDTO.class)
     @PutMapping("/empleado/{cedula}")
-    public ResponseEntity<EmpleadoDTO> updateEmployee(@ApiParam(value = "Digite la cedula del empleado que necesita actualizar", required = true) @PathVariable String cedula, @RequestBody EmpleadoDTO empleadoDTO) {
+    public ResponseEntity<EmpleadoDTO> updateEmployee(@ApiParam(value = "Digite la cedula del empleado que necesita actualizar.", required = true) @PathVariable String cedula, @RequestBody EmpleadoDTO empleadoDTO) {
         EmpleadoDTO empleadoActualizado = empleadoService.actualizarEmpleado(cedula, empleadoDTO);
         if (empleadoActualizado != null) {
             return ResponseEntity.ok(empleadoActualizado);

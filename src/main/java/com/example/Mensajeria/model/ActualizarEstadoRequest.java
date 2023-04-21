@@ -5,11 +5,11 @@ import com.example.Mensajeria.service.EnvioService;
 public class ActualizarEstadoRequest {
     private String numGuia;
     private String cedulaEmpleado;
-    private EnvioService.EstadoEnvio estado;
+    private String estado;
 
     public ActualizarEstadoRequest() {}
 
-    public ActualizarEstadoRequest(String numGuia, String cedulaEmpleado, EnvioService.EstadoEnvio estado) {
+    public ActualizarEstadoRequest(String numGuia, String cedulaEmpleado, String estado) {
         this.numGuia = numGuia;
         this.cedulaEmpleado = cedulaEmpleado;
         this.estado = estado;
@@ -31,11 +31,11 @@ public class ActualizarEstadoRequest {
         this.cedulaEmpleado = cedulaEmpleado;
     }
 
-    public EnvioService.EstadoEnvio getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EnvioService.EstadoEnvio estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 }

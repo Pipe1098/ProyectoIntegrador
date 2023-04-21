@@ -37,7 +37,7 @@ public class EmpleadoService {
     }
 
     private boolean validarEmpleado(Empleado empleado) {
-        if (empleado.getCedula()==null) {
+        if (empleado.getCedula()==null|| empleado.getCedula().isEmpty()) {
             // La cédula no es numérica o es nula
             return false;
         }
@@ -45,6 +45,9 @@ public class EmpleadoService {
         if (empleado.getNombre() == null || empleado.getNombre().isEmpty() || empleado.getApellido() == null || empleado.getApellido().isEmpty()) {
             // El nombre o el apellido están vacíos o son nulos
             return false;
+        }
+        if (empleadoRepository.findByCedula(empleado.getCedula()).isPresent()){
+            throw new ApiRequestException("El empleado con cedula:"+empleado.getCedula()+" ya esta registrado");
         }
 
         return true;
@@ -78,17 +81,16 @@ public class EmpleadoService {
     }
 
     public EmpleadoDTO obtenerEmpleadoPorCedula(String cedula) {
-        Empleado empleadoEncontrado = empleadoRepository.findAll()
+        Optional<Empleado> empleadoEncontrado = empleadoRepository.findAll()
                 .stream()
                 .filter(empleado -> empleado.getCedula().equalsIgnoreCase(cedula))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
 
-        if (empleadoEncontrado == null) {
+        if (!empleadoEncontrado.isPresent()) {
             // Manejo del caso en que no se encuentra el empleado
-            throw new ApiRequestException("Empleado no encontrado en la base de datos");
+            throw new ApiRequestException("Empleado con cedula:" +cedula+" no encontrado en la base de datos");
         } else {
-            EmpleadoDTO empleadoDTO = convertirEmpleadoAEmpleadoDTO(empleadoEncontrado);
+            EmpleadoDTO empleadoDTO = convertirEmpleadoAEmpleadoDTO(empleadoEncontrado.get());
             return empleadoDTO;
         }
     }
@@ -97,7 +99,7 @@ public class EmpleadoService {
         // Buscamos al empleado por su cédula
         Optional<Empleado> empleadoExistente = empleadoRepository.findByCedula(cedula);
         if (!empleadoExistente.isPresent()) {
-            throw new IllegalArgumentException("No se encontró ningún empleado con la cédula = "+cedula);
+            throw new ApiRequestException("No se encontró ningún empleado con la cédula = "+cedula);
         }
         Empleado empleadoExistente1=empleadoExistente.get();
         // Actualizamos los datos del empleado existente con los datos del DTO actualizado

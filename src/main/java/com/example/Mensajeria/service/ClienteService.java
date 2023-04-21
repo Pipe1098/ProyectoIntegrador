@@ -44,6 +44,9 @@ public class ClienteService {
             // El nombre o el apellido están vacíos o son nulos
             throw new ApiRequestException("El nombre o el apellido están vacíos o son nulos");
         }
+        if (clienteRepository.findByCedula(cliente.getCedula()).isPresent()){
+            throw new ApiRequestException("El cliente con cedula:"+cliente.getCedula()+" ya esta registrado");
+        }
 
         return true;
     }
@@ -80,7 +83,7 @@ public class ClienteService {
 
         if (!clienteEncontrado.isPresent()) {
             // Manejo del caso en que no se encuentra el cliente
-            throw new ApiRequestException("El cliente con la cedula"+cedula+"no se encuentra registrado.");
+            throw new ApiRequestException("El cliente con la cedula:"+cedula+" no se encuentra registrado.");
         } else {
             ClienteDTO clienteDTO = new ClienteDTO(clienteEncontrado.get().getNombre(), clienteEncontrado.get().getApellido(), clienteEncontrado.get().getCelular(),
                     clienteEncontrado.get().getCorreo(), clienteEncontrado.get().getCedula(), clienteEncontrado.get().getCiudad(), clienteEncontrado.get().getDireccion());
