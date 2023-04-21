@@ -45,6 +45,7 @@ public class BasicAuthConfiguration {
 //                .requestMatchers("/dba").hasAnyRole("DBA", "ADMIN")
                 .antMatchers(HttpMethod.POST).hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET).authenticated()
                 .and().csrf().disable().build();
     }
