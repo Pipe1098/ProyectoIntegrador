@@ -33,24 +33,25 @@ Esta API proporciona funcionalidades para gestionar envíos de paquetes de una e
 - Cuerpo de la solicitud /json: 
 ```json
 {
-    "cedula":"cedula",
-    "nombre":"nombre",
-    "apellido":"apellido",
-    "direccion":"direccion",
-    "edad":"edad",
-    "correoElectronico":"correoElectronico",
+  "apellido": "Alzate",
+  "cedula": "2563985478",
+  "celular": "3012569845",
+  "ciudad": "MedellÍn",
+  "correo": "Santi@gmail.com",
+  "direccion": "Cr 25-48",
+  "nombre": "Santiago"
 }
 ```
 -Ejemplo de respuesta exitosa:
 ```json
 {
-    "id": 1,
-    "cedula": "123456789",
-    "nombre": "Juan",
-    "apellido": "Pérez",
-    "direccion": "Av. 10 de Agosto N24-17 y Veintimilla",
-    "edad": 35,
-    "correoElectronico": "juan.perez@example.com"
+	"nombre": "Santiago",
+	"apellido": "Alzate",
+	"celular": "3012569845",
+	"correo": "Santi@gmail.com",
+	"cedula": "2563985478",
+	"ciudad": "MedellÍn",
+	"direccion": "Cr 25-48"
 }
 ```
 ## 👷🏻‍♂️ 📔 👨‍👩‍👧‍👧 POST /URL: http://localhost:8080/api/v1/empleado
@@ -58,24 +59,29 @@ Esta API proporciona funcionalidades para gestionar envíos de paquetes de una e
 - Cuerpo de la solicitud /json: 
 ```json
 {
-    "cedula":"cedula",
-    "nombre":"nombre",
-    "apellido":"apellido",
-    "direccion":"direccion",
-    "edad":"edad",
-    "correoElectronico":"correoElectronico",
+  "antigueadadEnEmpresa": 9,
+  "apellido": "Gonzales",
+  "cedula": "9865321478",
+  "celular": "3025698741",
+  "ciudad": "Ibagué",
+  "correo": "Esteban@gmail.com",
+  "direccion": "Cr 55 # 34 -98",
+  "id": 0,
+  "nombre": "Esteban",
+  "rh": "AB",
+  "tipoEmpleado": "CONDUCTOR"
 }
 ```
 -Ejemplo de respuesta exitosa:
 ```json
 {
-    "id": 1,
-    "cedula": "123456789",
-    "nombre": "Pedro",
-    "apellido": "Pérez",
-    "direccion": "Av. 10 de octubre N242-19 y Veintimilla",
-    "edad": 45,
-    "correoElectronico": "pedro.perez@example.com"
+	"cedula": "9865321478",
+	"apellido": "Gonzales",
+	"nombre": "Esteban",
+	"correoElectronico": "Esteban@gmail.com",
+	"celular": "3025698741",
+	"tipoEmpleado": "CONDUCTOR",
+	"antiguedadEnEmpresa": 9
 }
 ```
 ## 📦✅ Endpoint: POST/URL: http://localhost:8080/api/v1/envio
@@ -92,12 +98,15 @@ Parámetros:
 - Ejemplo de la petición:
 ```json
 {
-  "cedula": "12345678",
-  "nombreDestinatario": "Maria Rodriguez",
-  "direccionDestinatario": "Avenida 456, Ciudad",
-  "celDestinatario": "555-4321",
-  "valorDeclarado": 100,
-  "pesoPaquete ": 5
+  "cedula": "2563985478",
+  "cedulaEmpleado": "9865321478",
+  "celReceptor": "3005698798",
+  "ciudadDestino": "Cali",
+  "ciudadOrigen": "Pasto",
+  "dirDestino": "Cr 43 -67",
+  "nombreReceptor": "Pedro",
+  "peso": 2,
+  "valorDeclarado": 60000
 }
 ```
 - Ejemplo de respuesta:
