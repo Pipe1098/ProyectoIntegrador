@@ -1,5 +1,5 @@
 # ProyectoIntegrador: API de Mensajería 📦📬
-Esta API proporciona funcionalidades para gestionar envíos de paquetes de una empresa de mensajeria. Desarrollado en Java usando SpringBoot, JPA, Swagger, Spring Security, MySQL, y Junit para realizar pruebas unitarias.
+Esta API proporciona funcionalidades para gestionar envíos de paquetes de una empresa de mensajeria. Desarrollado en Java usando SpringBoot, JPA, Swagger, Spring Security, MySQL, Hibernate, insomnia, entre otras tecnologias 🐬🔬📱. Este proyecto cuenta con integración continua (CI) utilizando GitHub Actions para la ejecución automática de pruebas y validaciones de calidad de código 🔧💻. Además, se ha implementado una integración continua y entrega continua (CI/CD) con Railway para el despliegue automatizado de la aplicación en un servidor cloud. De esta manera, se asegura una entrega rápida y confiable de nuevas versiones de la API🔒.
 
 ## Instalación 🚀
 
@@ -9,20 +9,24 @@ Esta API proporciona funcionalidades para gestionar envíos de paquetes de una e
 4. Ejecute el comando gradle build para descargar las dependencias del proyecto y compilarlo.
 5. Ejecute el comando gradle bootRun para iniciar la aplicación.
 
-## Uso 🛠️
+## Despliegue 🛫💻
+### Pudes probar la API mediante el siguiente link: 
+- [https://api-MensaeriaExpress.co](https://proyectointegrador-production-a162.up.railway.app/swagger-ui/index.html#/)
 
-La aplicación está configurada para ejecutarse en http://localhost:8080.
-Pudes probar la API mediante el siguiente link: 
-
-- https://api-reservas-hotel-production.up.railway.app/swagger-ui/index.html#/
-
-- Usando los siguientes datos de autenticación:
-
-  Usuario: luis
-
-  Contraseña: 123
-
-Tambien puede probar la API utilizando una herramienta como Insomnia. Estos son algunos ejemplos de solicitudes que puede realizar:
+### Usando los siguientes datos de autenticación:
+- Perfil 1: solo lectura (peticiones GET)
+   
+   Usuario: user
+   
+   Contraseña: user123
+  
+ - Perfil 2: todas las (peticiones GET, POST, PUT, DELETE)
+   
+   Usuario: admin
+   
+   Contraseña: admin123
+   
+### Tambien puede probar la API utilizando una herramienta como Insomnia. Estos son algunos ejemplos de solicitudes que puede realizar:
 
 ## 🧑‍💼 Endpoint: POST /URL: http://localhost:8080/api/v1/cliente
  ### Registra un nuevo cliente en el sistema.
@@ -209,7 +213,15 @@ Requiere la cedula del empleado y el estado al cual se quiere actualizar (por me
 ### Este endpoint permite eliminar un envio por su id (numeroGuia)
 - Respuesta exitosa :
 
-Envio eliminado correctamente
+Envio eliminado correctamente.
+
+## 📊📈 Diagramas:
+### Diagrama de Entidad relacion:
+![DiagramaER](https://user-images.githubusercontent.com/90018701/233802643-119f9502-6a7f-4d70-b739-e84115591aa1.png)
+
+### Diagrama de UML:
+![Diagrama-UML](https://user-images.githubusercontent.com/90018701/233802663-c62b1d7c-366f-4c7f-bd06-fb7dda502c80.png)
+
 
 ## 🤝Contribuir
 Si deseas contribuir al proyecto, por favor sigue los siguientes pasos:
