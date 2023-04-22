@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Envio {
 
     // Atributos de la clase
@@ -19,8 +18,8 @@ public class Envio {
 
     @ManyToOne
     private Cliente cliente;
-    private String cedula;
-    private String cedulaEmpleado;
+
+    //private String cedula;
     private String ciudadOrigen;
     private String ciudadDestino;
     private String dirDestino;
@@ -34,25 +33,32 @@ public class Envio {
 
     @OneToOne
     private Paquete paquete;
+    @OneToOne
+    private Empleado empleado;
 
-    public void Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime horaEntrega, EnvioService.EstadoEnvio estadoEnvio, double valorEnvio, Paquete paquete) {
-        this.cliente = cliente;
+
+    public Envio(String codigo, Cliente newCliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EnvioService.EstadoEnvio estadoEnvio, double valorDeclarado, double peso, Double valorEnvio, Paquete paquete, Empleado empleado) {
+        this.numeroGuia = codigo;
+        this.cliente = newCliente;
+        //this.cedula = cedula;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.dirDestino = dirDestino;
         this.nombreReceptor = nombreReceptor;
         this.celReceptor = celReceptor;
-        this.horaEntrega = horaEntrega;
+        this.horaEntrega = fecha;
         this.estadoEnvio = estadoEnvio;
+        this.valorDeclarado = valorDeclarado;
+        this.peso = peso;
         this.valorEnvio = valorEnvio;
         this.paquete = paquete;
+        this.empleado = empleado;
     }
 
     public Envio(String codigo, Cliente newCliente, String cedula, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EnvioService.EstadoEnvio estadoEnvio,
                  double valorDeclarado, double peso, Double valorEnvio, Paquete paquete) {
         this.cliente = newCliente;
         this.numeroGuia = codigo;
-        this.cedula = cedula;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.dirDestino = dirDestino;
@@ -156,14 +162,6 @@ public class Envio {
 
     public void setPaquete(Paquete paquete) {
         this.paquete = paquete;
-    }
-
-    public String getCedulaEmpleado() {
-        return cedulaEmpleado;
-    }
-
-    public void setCedulaEmpleado(String cedulaEmpleado) {
-        this.cedulaEmpleado = cedulaEmpleado;
     }
 
     public double getValorDeclarado() {

@@ -39,22 +39,7 @@ public class EmpleadoDTO {
     public String getCorreoElectronico() {
         return correoElectronico;
     }
-    /*    public enum String{
 
-            REPARTIDOR(1),
-            CONDUCTOR(2),
-            RECEPCIONISTA(3);
-
-            private int valor;
-
-            TipoEmpleado(int valor) {
-                this.valor = valor;
-            }
-
-            public int getValor() {
-                return valor;
-            }
-        }*/
     public String getCelular() {
         return celular;
     }

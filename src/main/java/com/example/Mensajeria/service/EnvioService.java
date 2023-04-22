@@ -91,11 +91,14 @@ public class EnvioService {
         String codigo = generarNumGuia();
         Double valorEnvio = ValorEnvio(tipoPaquete);
         LocalDateTime fecha = generarFechaAleatoria();
-
+        Optional<Empleado> empleado=empleadoRepository.findByCedula(envioDTO.getCedulaEmpleado());
+        if (!empleado.isPresent()){
+            throw new ApiRequestException("Empleado con cedula:"+envioDTO.getCedulaEmpleado()+" no puede realizar la gestion del envio, por que no trabaja en la compania.");
+        }
         Paquete paquete = new Paquete(tipoPaquete, envioDTO.getPeso(), envioDTO.getValorDeclarado());
-        Envio newEnvio = new Envio(codigo, newCliente, envioDTO.getCedula(),envioDTO.getCiudadOrigen(), envioDTO.getCiudadDestino(),
+        Envio newEnvio = new Envio(codigo, newCliente,envioDTO.getCiudadOrigen(), envioDTO.getCiudadDestino(),
                 envioDTO.getDirDestino(), envioDTO.getNombreReceptor(), envioDTO.getCelReceptor(),
-                fecha, EstadoEnvio.RECIBIDO,envioDTO.getValorDeclarado(),envioDTO.getPeso(), valorEnvio, paquete);
+                fecha, EstadoEnvio.RECIBIDO,envioDTO.getValorDeclarado(),envioDTO.getPeso(), valorEnvio, paquete,empleado.get());
 
         paqueteRepository.save(paquete);
         envioRepository.save(newEnvio);
@@ -152,7 +155,7 @@ public class EnvioService {
             Envio envio = envioRepository.findById(id)
                     .orElseThrow(() -> new ApiRequestException("El numero de guia no se encuentra registrado"));
             envio.setCiudadOrigen(envioDTO.getCiudadOrigen());
-            envio.setCedulaEmpleado(envioDTO.getCedulaEmpleado());
+            //envio.setCedulaEmpleado(envioDTO.getCedulaEmpleado());
             envio.setClientep(envioDTO.getCedula());
             envio.setCiudadDestino(envioDTO.getCiudadDestino());
             envio.setDirDestino(envioDTO.getDirDestino());

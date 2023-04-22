@@ -1,8 +1,5 @@
 package com.example.Mensajeria.seguridad;
 
-
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,25 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 public class BasicAuthConfiguration {
 
 
-    //Endpoint level authorization
-
-    // ---- Matcher
-    // 1. AnyRequest
-    // 2. RequestMatchers
-    // 3. RequestMatchers with HttpMethod
-
-
-    // ---- Authorization rule
-    // 1. PermitAll
-    // 2. DenyAll
-    // 3. Authenticated
-    // 4. HasRole
-    // 5. HasAuthority
-    // 6. Access (SpEL) - Spring Expression Language
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,22 +33,6 @@ public class BasicAuthConfiguration {
                 .and().csrf().disable().build();
     }
 
-
-
-//    @Bean
-//    public SecurityFilterChain1 securityFilterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .httpBasic()
-//                .and().authorizeHttpRequests()
-//                //.anyRequest().permitAll()
-//                //.anyRequest().denyAll()
-//                //.anyRequest().authenticated()
-//                //.anyRequest().hasRole("ADMIN")
-//                //.anyRequest().hasAuthority("write")
-//                .anyRequest().access(new WebExpressionAuthorizationManager("hasRole('ADMIN') or hasRole('DBA')")) //Spring Expression Language (SpEL)
-//                .and().build();
-
-//    }
 
     @Bean
     public UserDetailsService userDetailsService() {

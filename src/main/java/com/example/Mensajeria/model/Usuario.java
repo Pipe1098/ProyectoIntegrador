@@ -17,7 +17,7 @@ public abstract class Usuario {
     protected String apellido;
 
     @Column(nullable = false)
-    protected String celular;
+    public String celular;
 
     @Column(nullable = false, unique = true)
     protected String correo;
@@ -30,6 +30,7 @@ public abstract class Usuario {
 
     @Column(nullable = false, unique = true)
     protected String cedula;
+
 
     // Constructor vacío requerido por JPA
     public Usuario() {}

@@ -3,6 +3,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "empleados")
+@PrimaryKeyJoinColumn(name = "id")
 public class Empleado extends Usuario {
 
     @Column(nullable = false)
@@ -13,6 +14,7 @@ public class Empleado extends Usuario {
 
     @Column(nullable = false)
     private String tipoEmpleado;
+
 
     // Constructor vacío requerido por JPA
     public Empleado() {}
@@ -41,23 +43,6 @@ public class Empleado extends Usuario {
     public void setRh(String rh) {
         this.rh = rh;
     }
-
-/*    public enum TipoEmpleado {
-
-        REPARTIDOR(1),
-        CONDUCTOR(2),
-        RECEPCIONISTA(3);
-
-        private int valor;
-
-        TipoEmpleado(int valor) {
-            this.valor = valor;
-        }
-
-        public int getValor() {
-            return valor;
-        }
-    }*/
 
     public String getTipoEmpleado() {
         return tipoEmpleado;

@@ -21,9 +21,6 @@ public class EnvioDTO {
     private String celReceptor;
     private double valorDeclarado;
     private double peso;
-    //private double valorEnvio;
-   // private LocalDateTime horaEntrega;
-   // private String numeroGuia;
 
 
     public String getCedula() {
@@ -98,29 +95,6 @@ public class EnvioDTO {
         this.cedulaEmpleado = cedulaEmpleado;
     }
 
-/*   public double getValorEnvio() {
-        return valorEnvio;
-    }
-
-    public void setValorEnvio(double valorEnvio) {
-        this.valorEnvio = valorEnvio;
-    }
-
-    public LocalDateTime getHoraEntrega() {
-        return horaEntrega;
-    }
-
-    public void setHoraEntrega(LocalDateTime horaEntrega) {
-        this.horaEntrega = horaEntrega;
-    }*/
-
-  /*  public ClienteDTO getClienteDTO() {
-        return clienteDTO;
-    }
-
-    public void setClienteDTO(ClienteDTO clienteDTO) {
-        this.clienteDTO = clienteDTO;
-    }*/
 }
 
 

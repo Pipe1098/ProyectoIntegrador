@@ -19,6 +19,7 @@ public class Paquete {
     @Column(nullable = false)
     private double valorDeclarado;
 
+
     // Constructor vacío requerido por JPA
     public Paquete() {}
 

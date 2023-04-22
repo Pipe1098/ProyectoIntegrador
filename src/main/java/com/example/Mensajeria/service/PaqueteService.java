@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class PaqueteService {
 
-    private PaqueteRepository paqueteRepository;
+  /*  private PaqueteRepository paqueteRepository;
 
     public PaqueteService() {
     }
@@ -39,8 +39,8 @@ public class PaqueteService {
         PaqueteDTO paqueteDTO = PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);
         return paqueteDTO;
     }
-  /*  Paquete paquete = new Paquete("123", "Tipo A", 1.5, 100.0);
-    PaqueteDTO paqueteDTO = PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);*/
+  *//*  Paquete paquete = new Paquete("123", "Tipo A", 1.5, 100.0);
+    PaqueteDTO paqueteDTO = PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);*//*
 
     public PaqueteDTO crear(Paquete paquete) {
         paquete = paqueteRepository.save(paquete);
@@ -65,6 +65,6 @@ public class PaqueteService {
             throw new EntityNotFoundException("Paquete no encontrado con ID: " + id);
         }
         paqueteRepository.deleteById(id);
-    }
+    }*/
 }
 
