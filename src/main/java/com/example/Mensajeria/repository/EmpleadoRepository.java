@@ -13,4 +13,6 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
     Optional<Empleado> findByCedula(String cedula);
 
     void deleteByCedula(int cedula);
+
+    boolean existsByCedula(String cedula);
 }

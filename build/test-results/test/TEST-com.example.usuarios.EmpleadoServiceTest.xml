@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.usuarios.EmpleadoServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-22T02:45:58" hostname="DESKTOP-H7JK71F" time="2.459">
+  <properties/>
+  <testcase name="testCrearEmpleado()" classname="com.example.usuarios.EmpleadoServiceTest" time="2.379"/>
+  <testcase name="testValidarEmpleadoCorrecto()" classname="com.example.usuarios.EmpleadoServiceTest" time="0.005"/>
+  <testcase name="testValidarEmpleadoNombreNull()" classname="com.example.usuarios.EmpleadoServiceTest" time="0.016"/>
+  <testcase name="testValidarEmpleadoApellidoNull()" classname="com.example.usuarios.EmpleadoServiceTest" time="0.005"/>
+  <testcase name="testValidarEmpleadoCedula()" classname="com.example.usuarios.EmpleadoServiceTest" time="0.027"/>
+  <testcase name="testValidarEmpleadoNombreVacio()" classname="com.example.usuarios.EmpleadoServiceTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

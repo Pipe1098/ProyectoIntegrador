@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -20,6 +19,7 @@ public class Envio {
 
     @ManyToOne
     private Cliente cliente;
+    private String cedula;
     private String cedulaEmpleado;
     private String ciudadOrigen;
     private String ciudadDestino;
@@ -35,8 +35,7 @@ public class Envio {
     @OneToOne
     private Paquete paquete;
 
-
- /*   public Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime horaEntrega, EnvioService.EstadoEnvio estadoEnvio, double valorEnvio, Paquete paquete) {
+    public void Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime horaEntrega, EnvioService.EstadoEnvio estadoEnvio, double valorEnvio, Paquete paquete) {
         this.cliente = cliente;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
@@ -47,31 +46,26 @@ public class Envio {
         this.estadoEnvio = estadoEnvio;
         this.valorEnvio = valorEnvio;
         this.paquete = paquete;
-    }*/
+    }
+
+    public Envio(String codigo, Cliente newCliente, String cedula, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EnvioService.EstadoEnvio estadoEnvio,
+                 double valorDeclarado, double peso, Double valorEnvio, Paquete paquete) {
+        this.cliente = newCliente;
+        this.numeroGuia = codigo;
+        this.cedula = cedula;
+        this.ciudadOrigen = ciudadOrigen;
+        this.ciudadDestino = ciudadDestino;
+        this.dirDestino = dirDestino;
+        this.nombreReceptor = nombreReceptor;
+        this.celReceptor = celReceptor;
+        this.valorDeclarado = valorDeclarado;
+        this.peso = peso;
+        this.horaEntrega = fecha;
+        this.estadoEnvio = estadoEnvio;
+        this.valorEnvio = valorEnvio;
+        this.paquete = paquete;
+    }
 // Métodos de la clase
-
-  /*  public String generarNumGuia(){
-        UUID uuid = UUID.randomUUID();
-        String codigo = uuid.toString().replace("-", "").substring(0, 10);
-        return codigo;
-    }*/
-
-/*    public enum EstadoEnvio {
-
-        RECIBIDO(1),
-        EN_RUTA(2),
-        ENTREGADO(3);
-
-        private int valor;
-
-        EstadoEnvio(int valor) {
-            this.valor = valor;
-        }
-
-        public int getValor() {
-            return valor;
-        }
-    }*/
 
     public String getNumeroGuia() {
         return numeroGuia;

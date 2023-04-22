@@ -16,6 +16,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Optional<Cliente> findByCedula(String cedula);
 
     void deleteByCedula(int cedula);
+
+    boolean existsByCedula(String cedula);
 }
 
 

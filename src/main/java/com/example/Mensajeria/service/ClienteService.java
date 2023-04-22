@@ -18,6 +18,9 @@ public class ClienteService {
 
     private ClienteRepository clienteRepository;
 
+    public ClienteService() {
+    }
+
     //private  ModelMapper modelMapper;
     @Autowired
     public ClienteService(ClienteRepository clienteRepository) {
@@ -36,20 +39,26 @@ public class ClienteService {
     }
 
     public boolean validarCliente(ClienteDTO cliente) {
-        if (cliente.getCedula() == null || !cliente.getCedula().matches("^\\d{10}$")) {
-            throw new ApiRequestException("Cedula:" + cliente.getCedula() + " no permitida");
+
+        String cedula = cliente.getCedula();
+        String nombre = cliente.getNombre();
+        String apellido = cliente.getApellido();
+
+        if (cedula == null || !cedula.matches("^\\d{10}$")) {
+            throw new ApiRequestException("Cedula: " + cedula + " no permitida");
         }
 
-        if (cliente.getNombre() == null || cliente.getNombre().isEmpty() || cliente.getApellido() == null || cliente.getApellido().isEmpty()) {
-            // El nombre o el apellido están vacíos o son nulos
+        if (nombre == null || nombre.isEmpty() || apellido == null || apellido.isEmpty()) {
             throw new ApiRequestException("El nombre o el apellido están vacíos o son nulos");
         }
-        if (clienteRepository.findByCedula(cliente.getCedula()).isPresent()){
-            throw new ApiRequestException("El cliente con cedula:"+cliente.getCedula()+" ya esta registrado");
+
+        if (clienteRepository.existsByCedula(cedula)) {
+            throw new ApiRequestException("El cliente con cedula: " + cedula + " ya esta registrado");
         }
 
         return true;
     }
+
 
     public List<ClienteDTO> crearClientes() {
         this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409"));

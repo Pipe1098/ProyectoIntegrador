@@ -103,10 +103,10 @@ public class EnvioService {
         return newEnvio.toString();
     }
 
-    private Double ValorEnvio(String tipoPaquete) {
-        if (tipoPaquete.contains("LIVIANO")) {
+    public Double ValorEnvio(String tipoPaquete) {
+        if (tipoPaquete.equalsIgnoreCase("LIVIANO")) {
             return 30000.0;
-        } else if (tipoPaquete.contains("Mediano")) {
+        } else if (tipoPaquete.equalsIgnoreCase("Mediano")) {
             return 40000.0;
         } else {
             return 50000.0;

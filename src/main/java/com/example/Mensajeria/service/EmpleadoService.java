@@ -36,22 +36,26 @@ public class EmpleadoService {
         }
     }
 
-    private boolean validarEmpleado(Empleado empleado) {
-        if (empleado.getCedula()==null|| empleado.getCedula().isEmpty()) {
-            // La cédula no es numérica o es nula
-            return false;
+    public boolean validarEmpleado(Empleado empleado) {
+        String cedula = empleado.getCedula();
+        String nombre = empleado.getNombre();
+        String apellido = empleado.getApellido();
+
+        if (cedula == null || !cedula.matches("^\\d{10}$")) {
+            throw new ApiRequestException("Cedula: " + cedula + " no permitida");
         }
 
-        if (empleado.getNombre() == null || empleado.getNombre().isEmpty() || empleado.getApellido() == null || empleado.getApellido().isEmpty()) {
-            // El nombre o el apellido están vacíos o son nulos
-            return false;
+        if (nombre == null || nombre.isEmpty() || apellido == null || apellido.isEmpty()) {
+            throw new ApiRequestException("El nombre o el apellido están vacíos o son nulos");
         }
-        if (empleadoRepository.findByCedula(empleado.getCedula()).isPresent()){
-            throw new ApiRequestException("El empleado con cedula:"+empleado.getCedula()+" ya esta registrado");
+
+        if (empleadoRepository.existsByCedula(cedula)) {
+            throw new ApiRequestException("El empleado con cedula: " + cedula + " ya esta registrado");
         }
 
         return true;
     }
+
     public List<EmpleadoDTO> crearEmpleados() {
         this.empleadoRepository.save(new Empleado("Carlos", "Perez","3001458964", "Carl@hotmail.com","CR 50-30","Medellin","1234",1,"o+","COORDINADOR"));
         this.empleadoRepository.save(new Empleado("Juan", "Lopez","3121858554", "Ju@hotmail.com","CR 24-20","Cali","567",5,"A+","repartidor"));
