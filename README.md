@@ -225,11 +225,18 @@ Requiere la cedula del empleado y el estado al cual se quiere actualizar (por me
 Envio eliminado correctamente.
 
 ## 📊📈 Diagramas:
+### Diagrama de UML:
+![Diagrama-UML](https://user-images.githubusercontent.com/90018701/233802663-c62b1d7c-366f-4c7f-bd06-fb7dda502c80.png)
+
 ### Diagrama de Entidad relacion:
 ![DiagramaER](https://user-images.githubusercontent.com/90018701/233802643-119f9502-6a7f-4d70-b739-e84115591aa1.png)
 
-### Diagrama de UML:
-![Diagrama-UML](https://user-images.githubusercontent.com/90018701/233802663-c62b1d7c-366f-4c7f-bd06-fb7dda502c80.png)
+### Diagrama de clases (Cliente, Empleado, Envio):
+![mensajeria_clase_cliente drawio ](https://user-images.githubusercontent.com/90018701/234020175-33c436bf-d385-47bd-af7e-8e0ac93bab49.png)
+![mensajeria_clase_empleado drawio](https://user-images.githubusercontent.com/90018701/234016701-3dd55d37-e05b-4c2e-9de1-69b0e3c3af18.png)
+![mensajeria_clase_envio drawio](https://user-images.githubusercontent.com/90018701/234020245-9e512656-91e6-4743-902c-e03cc48b6098.png)
+
+
 
 
 ## 🤝Contribuir
