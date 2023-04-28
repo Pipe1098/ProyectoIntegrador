@@ -29,4 +29,9 @@ public class EnvioMapperImpl implements EnvioMapper {
 
         return envioDTO;
     }
+
+    @Override
+    public Envio envioDTOToEnvio(EnvioDTO envioDTO) {
+        return null;
+    }
 }

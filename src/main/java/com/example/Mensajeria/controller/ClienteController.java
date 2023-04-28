@@ -29,7 +29,9 @@ public class ClienteController {
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Cliente creado con exito"),
-            @ApiResponse(code = 404, message = "No se pudo crear el cliente con los datos ingresados"),
+            @ApiResponse(code = 404, message = "Cliente/s no encontrado"),
+            @ApiResponse(code = 400, message = " Dato/s  mal ingresado/s"),
+            @ApiResponse(code = 401, message = " No esta autorizado para realizar esta operación"),
             @ApiResponse(code = 500, message = "Error de conexion")
     })
 
@@ -55,7 +57,6 @@ public class ClienteController {
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 
-    //@PreAuthorize("hasRole('USER')")
     @ApiOperation(value = "Actualizar cliente", notes = "Permite actualizar un cliente registrado en la base de datos.", response = ClienteDTO.class)
     @PutMapping("/cliente/{cedula}")
     public ResponseEntity<ClienteDTO> actualizarCliente(@ApiParam(value = "Digite la cedula del cliente que necesita actualizar.", required = true) @PathVariable String cedula, @RequestBody ClienteDTO clienteDTO) {
@@ -69,7 +70,7 @@ public class ClienteController {
 
     @ApiOperation(value = "Obtener cliente por su cedula ", notes = "Permite obtener datos de un cliente registrado en la base de datos", response = ClienteDTO.class)
     @GetMapping("cliente/{cedula}")
-    public ResponseEntity<ClienteDTO> getByCc(@ApiParam(value = "Digite la cedula del cliente del cual requiere obtener información", required = true) @PathVariable String cedula) {
+    public ResponseEntity<ClienteDTO> obtenerClinetePorId(@ApiParam(value = "Digite la cedula del cliente del cual requiere obtener información", required = true) @PathVariable String cedula) {
         ClienteDTO clienteEncontrado = clienteService.obtenerClientePorCedula(cedula);
         if (clienteEncontrado != null) {
             return ResponseEntity.ok(clienteEncontrado);
@@ -80,7 +81,8 @@ public class ClienteController {
 
     @ApiOperation(value = "Eliminar cliente por su cedula", notes = "Permite eliminar un cliente registrado en la base de datos por medio del numero de cedula", response = String.class)
     @DeleteMapping("cliente/{cedula}")
-    public String deleteByCc(@ApiParam(value = "Digite la cedula del cliente que desea eliminar", required = true) @PathVariable("cedula") String cedula) {
+
+    public String eliminarClientePorId(@ApiParam(value = "Digite la cedula del cliente que desea eliminar", required = true) @PathVariable("cedula") String cedula) {
         String msg = this.clienteService.eliminarClientePorCedula(cedula);
         return msg;
     }

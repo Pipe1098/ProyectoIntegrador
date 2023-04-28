@@ -15,9 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class EmpleadoService {
 
-
     private EmpleadoRepository empleadoRepository;
-
 
     public EmpleadoService() {
     }
@@ -89,9 +87,7 @@ public class EmpleadoService {
                 .stream()
                 .filter(empleado -> empleado.getCedula().equalsIgnoreCase(cedula))
                 .findFirst();
-
         if (!empleadoEncontrado.isPresent()) {
-            // Manejo del caso en que no se encuentra el empleado
             throw new ApiRequestException("Empleado con cedula:" +cedula+" no encontrado en la base de datos");
         } else {
             EmpleadoDTO empleadoDTO = convertirEmpleadoAEmpleadoDTO(empleadoEncontrado.get());
@@ -100,22 +96,22 @@ public class EmpleadoService {
     }
 
     public EmpleadoDTO actualizarEmpleado( String cedula, EmpleadoDTO empleadoDtoActualizado) {
-        // Buscamos al empleado por su cédula
+
         Optional<Empleado> empleadoExistente = empleadoRepository.findByCedula(cedula);
         if (!empleadoExistente.isPresent()) {
             throw new ApiRequestException("No se encontró ningún empleado con la cédula = "+cedula);
         }
         Empleado empleadoExistente1=empleadoExistente.get();
-        // Actualizamos los datos del empleado existente con los datos del DTO actualizado
+
         empleadoExistente1.setApellido(empleadoDtoActualizado.getApellido());
         empleadoExistente1.setNombre(empleadoDtoActualizado.getNombre());
         empleadoExistente1.setCorreo(empleadoDtoActualizado.getCorreoElectronico());
         empleadoExistente1.setCelular(empleadoDtoActualizado.getCelular());
         empleadoExistente1.setTipoEmpleado(empleadoDtoActualizado.getTipoEmpleado());
         empleadoExistente1.setAntigueadadEnEmpresa(empleadoDtoActualizado.getAntiguedadEnEmpresa());
-        // Guardamos los cambios en la base de datos
+
         empleadoRepository.save(empleadoExistente1);
-        // Retornamos el DTO actualizado
+
         return empleadoDtoActualizado;
     }
 

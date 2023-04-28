@@ -12,6 +12,6 @@ public interface EnvioMapper {
 
     EnvioDTO envioToEnvioDTO(Envio envio);
 
-    //Envio envioDTOToEnvio(EnvioDTO envioDTO);
+    Envio envioDTOToEnvio(EnvioDTO envioDTO);
 
 }

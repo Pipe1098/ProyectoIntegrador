@@ -12,14 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Envio {
 
-    // Atributos de la clase
     @Id
     private String numeroGuia;
 
     @ManyToOne
     private Cliente cliente;
 
-    //private String cedula;
     private String ciudadOrigen;
     private String ciudadDestino;
     private String dirDestino;
@@ -40,7 +38,6 @@ public class Envio {
     public Envio(String codigo, Cliente newCliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EnvioService.EstadoEnvio estadoEnvio, double valorDeclarado, double peso, Double valorEnvio, Paquete paquete, Empleado empleado) {
         this.numeroGuia = codigo;
         this.cliente = newCliente;
-        //this.cedula = cedula;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.dirDestino = dirDestino;
@@ -180,6 +177,14 @@ public class Envio {
         this.peso = peso;
     }
 
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
     @Override
     public String toString() {
         return "Envio{" +
@@ -187,4 +192,6 @@ public class Envio {
                 ", estadoEnvio=" + estadoEnvio +
                 '}';
     }
+
+
 }

@@ -21,7 +21,6 @@ public class ClienteService {
     public ClienteService() {
     }
 
-    //private  ModelMapper modelMapper;
     @Autowired
     public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
@@ -58,7 +57,6 @@ public class ClienteService {
 
         return true;
     }
-
 
     public List<ClienteDTO> crearClientes() {
         this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409"));

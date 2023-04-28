@@ -64,7 +64,7 @@ public class EnvioServiceTest {
         when(envioRepository.save(envio)).thenReturn(envio);
 
         // Act
-        String creado = envioService.generate(enviodto);
+        String creado = envioService.generar(enviodto);
         String[] substring = creado.split(",");
 
         // Assert
