@@ -25,7 +25,7 @@ public class PaqueteController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Paquete creado con exito"),
+            @ApiResponse(code = 201, message = "Paquete creado con exito"),
             @ApiResponse(code = 404, message = "Paquete no encontrado"),
             @ApiResponse(code = 400, message = " dato/s  mal ingresado/s"),
             @ApiResponse(code = 403, message = "Operacion prohibida"),
@@ -38,7 +38,7 @@ public class PaqueteController {
         return paqueteService.obtenerPaquetes();
     }
 
-    @ApiOperation(value = "Obtener paquete por Id", notes = "Devuelve los datos de un paquete especificando su Id.", response = ClienteDTO.class)
+    @ApiOperation(value = "Obtener paquete por Id", notes = "Devuelve los datos de un paquete especificando su Id.", response = PaqueteDTO.class)
     @GetMapping("/paquete/{id}")
     public PaqueteDTO obtenerPaquetePorId(@PathVariable Long id) {
         return paqueteService.encontrarPorId(id);

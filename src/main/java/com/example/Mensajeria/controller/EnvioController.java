@@ -4,6 +4,7 @@ import com.example.Mensajeria.configurer.EnvioMapper;
 import com.example.Mensajeria.dto.EnvioDTO;
 import com.example.Mensajeria.model.ActualizarEstadoRequest;
 import com.example.Mensajeria.model.Envio;
+import com.example.Mensajeria.model.EstadoEnvio;
 import com.example.Mensajeria.service.EnvioService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -74,7 +75,7 @@ public class EnvioController {
     @ApiOperation(value = "Filtar por estado", notes = "Permite obtener todos los envios de la base de datos que estan en determinado estado (entregado, en_ruta o recibido).", response = Envio.class)
     @GetMapping("/envios/filtro")
     public ResponseEntity<List<Envio>> filtrarPorEstado(
-            @RequestParam(name = "estado") EnvioService.EstadoEnvio estado,
+            @RequestParam(name = "estado") EstadoEnvio estado,
             @RequestParam(name = "cedulaEmpleado") String cedulaEmpleado) {
         List<Envio> envios = envioService.filtrar(estado, cedulaEmpleado);
         return ResponseEntity.ok(envios);

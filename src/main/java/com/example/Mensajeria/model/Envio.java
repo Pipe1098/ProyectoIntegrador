@@ -1,8 +1,10 @@
 package com.example.Mensajeria.model;
 import com.example.Mensajeria.service.EnvioService;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,7 +26,7 @@ public class Envio {
     private String nombreReceptor;
     private String celReceptor;
     private LocalDateTime horaEntrega;
-    private EnvioService.EstadoEnvio estadoEnvio;
+    private EstadoEnvio estadoEnvio;
     private double valorDeclarado;
     private double peso;
     private double valorEnvio;
@@ -34,8 +36,7 @@ public class Envio {
     @OneToOne
     private Empleado empleado;
 
-
-    public Envio(String codigo, Cliente newCliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EnvioService.EstadoEnvio estadoEnvio, double valorDeclarado, double peso, Double valorEnvio, Paquete paquete, Empleado empleado) {
+public Envio(String codigo, Cliente newCliente, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EstadoEnvio estadoEnvio, double valorDeclarado, double peso, Double valorEnvio, Paquete paquete, Empleado empleado) {
         this.numeroGuia = codigo;
         this.cliente = newCliente;
         this.ciudadOrigen = ciudadOrigen;
@@ -52,7 +53,7 @@ public class Envio {
         this.empleado = empleado;
     }
 
-    public Envio(String codigo, Cliente newCliente, String cedula, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EnvioService.EstadoEnvio estadoEnvio,
+    public Envio(String codigo, Cliente newCliente, String cedula, String ciudadOrigen, String ciudadDestino, String dirDestino, String nombreReceptor, String celReceptor, LocalDateTime fecha, EstadoEnvio estadoEnvio,
                  double valorDeclarado, double peso, Double valorEnvio, Paquete paquete) {
         this.cliente = newCliente;
         this.numeroGuia = codigo;
@@ -137,11 +138,11 @@ public class Envio {
         this.horaEntrega = horaEntrega;
     }
 
-    public EnvioService.EstadoEnvio getEstadoEnvio() {
+    public EstadoEnvio getEstadoEnvio() {
         return estadoEnvio;
     }
 
-    public void setEstadoEnvio(EnvioService.EstadoEnvio estadoEnvio) {
+    public void setEstadoEnvio(EstadoEnvio estadoEnvio) {
         this.estadoEnvio = estadoEnvio;
     }
 

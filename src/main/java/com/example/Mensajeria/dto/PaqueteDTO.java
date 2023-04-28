@@ -1,10 +1,12 @@
 package com.example.Mensajeria.dto;
 
+import com.example.Mensajeria.model.TipoPaquete;
+
 public class PaqueteDTO {
 
     private double peso;
     private double valorDeclarado;
-    private String tipoPaquete;
+    private TipoPaquete tipoPaquete;
 
 
     public PaqueteDTO() {
@@ -14,7 +16,7 @@ public class PaqueteDTO {
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;
     }
-    public PaqueteDTO(double peso, double valorDeclarado,String tipoPaquete) {
+    public PaqueteDTO(double peso, double valorDeclarado,TipoPaquete tipoPaquete) {
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;
         this.tipoPaquete = tipoPaquete;
@@ -36,7 +38,7 @@ public class PaqueteDTO {
         return valorDeclarado;
     }
 
-    public String getTipoPaquete() {
+    public TipoPaquete getTipoPaquete() {
         return this.tipoPaquete;
     }
 }

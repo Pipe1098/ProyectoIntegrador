@@ -2,10 +2,7 @@ package com.example.usuarios;
 
 
 import com.example.Mensajeria.dto.EnvioDTO;
-import com.example.Mensajeria.model.Cliente;
-import com.example.Mensajeria.model.Empleado;
-import com.example.Mensajeria.model.Envio;
-import com.example.Mensajeria.model.Paquete;
+import com.example.Mensajeria.model.*;
 import com.example.Mensajeria.repository.ClienteRepository;
 import com.example.Mensajeria.repository.EmpleadoRepository;
 import com.example.Mensajeria.repository.EnvioRepository;
@@ -53,10 +50,10 @@ public class EnvioServiceTest {
         // Act
         Cliente cliente = new Cliente("John", "Doe", "123456789", "johndoe@example.com", "Calle 123", "Bogotá", "1234567890");
         Empleado empleado = new Empleado("Jane", "Doe", "987654321", "janedoe@example.com", "Carrera 456", "Medellín", "1987654321", 2, "O-", "REPARTIDOR");
-        Paquete paquete = new Paquete("liviano", 5.0, 100000.0);
+        Paquete paquete = new Paquete(TipoPaquete.LIVIANO, 5.0, 100000.0);
         EnvioDTO enviodto = new EnvioDTO(cliente.getCedula(), empleado.getCedula(), "Bogotá", "Medellín", "Carrera 789", "Juan Pérez", "321654987", paquete.getValorDeclarado(), paquete.getPeso());
         Envio envio = new Envio("abcd369852", cliente, "1234567890", "med", "cali", "cr30", "luis",
-                "3002569874", LocalDateTime.now(), EnvioService.EstadoEnvio.RECIBIDO, 2000.0, 5.2, 100.0, paquete);
+                "3002569874", LocalDateTime.now(),EstadoEnvio.RECIBIDO, 2000.0, 5.2, 100.0, paquete);
         when(clienteRepository.findByCedula(cliente.getCedula())).thenReturn(Optional.of(cliente));
         when(empleadoRepository.findByCedula(empleado.getCedula())).thenReturn(Optional.of(empleado));
         when(clienteRepository.save(cliente)).thenReturn(cliente);
@@ -76,7 +73,7 @@ public class EnvioServiceTest {
     @org.junit.jupiter.api.Test
     void calcularValorEnvioTest() {
         // Arrange
-        Paquete paquete = new Paquete("LIVIANO", 1.0, 50000.0);
+        Paquete paquete = new Paquete(TipoPaquete.GRANDE, 1.0, 50000.0);
 
         // Act1
         double valorEnvio = this.envioService.ValorEnvio(paquete.getTipoPaquete());

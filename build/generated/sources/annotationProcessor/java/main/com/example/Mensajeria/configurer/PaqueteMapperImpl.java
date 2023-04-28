@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-22T13:31:01-0500",
+    date = "2023-04-28T12:41:49-0500",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.12 (Oracle Corporation)"
 )
 public class PaqueteMapperImpl implements PaqueteMapper {
@@ -33,7 +33,7 @@ public class PaqueteMapperImpl implements PaqueteMapper {
 
         Paquete paquete = new Paquete();
 
-        paquete.setTipoPaquete( paqueteDTO.getTipoPaquete() );
+        paquete.setTipoPaquete( paqueteDTO.getTipoPaquete());
         paquete.setPeso( paqueteDTO.getPeso() );
         paquete.setValorDeclarado( paqueteDTO.getValorDeclarado() );
 

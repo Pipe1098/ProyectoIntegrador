@@ -11,7 +11,7 @@ public class Paquete {
     private Long idPaquete;
 
     @Column(nullable = false)
-    private String tipoPaquete;
+    private TipoPaquete tipoPaquete;
 
     @Column(nullable = false)
     private double peso;
@@ -24,17 +24,17 @@ public class Paquete {
     public Paquete() {}
 
     // Constructor con parámetros
-    public Paquete(String tipoPaquete, double peso, double valorDeclarado) {
+    public Paquete(TipoPaquete tipoPaquete, double peso, double valorDeclarado) {
         this.tipoPaquete = tipoPaquete;
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;
     }
 
-    public String getTipoPaquete() {
+    public TipoPaquete getTipoPaquete() {
         return this.tipoPaquete;
     }
 
-    public void setTipoPaquete(String tipoPaquete) {
+    public void setTipoPaquete(TipoPaquete tipoPaquete) {
         this.tipoPaquete = tipoPaquete;
     }
 

@@ -55,8 +55,8 @@ public class EmpleadoService {
     }
 
     public List<EmpleadoDTO> crearEmpleados() {
-        this.empleadoRepository.save(new Empleado("Carlos", "Perez","3001458964", "Carl@hotmail.com","CR 50-30","Medellin","1234",1,"o+","COORDINADOR"));
-        this.empleadoRepository.save(new Empleado("Juan", "Lopez","3121858554", "Ju@hotmail.com","CR 24-20","Cali","567",5,"A+","repartidor"));
+        this.empleadoRepository.save(new Empleado("Carlos", "Perez","3001458964", "Carl@hotmail.com","CR 50-30","Medellin","1234567852",1,"o+","COORDINADOR"));
+        this.empleadoRepository.save(new Empleado("Juan", "Lopez","3121858554", "Ju@hotmail.com","CR 24-20","Cali","5671254789",5,"A+","repartidor"));
         return empleadoRepository.findAll().
                 stream()
                 .map(empleado -> new EmpleadoDTO(

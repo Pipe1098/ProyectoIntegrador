@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-22T13:44:00-0500",
+    date = "2023-04-28T12:41:50-0500",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.12 (Oracle Corporation)"
 )
 public class EnvioMapperImpl implements EnvioMapper {
@@ -28,10 +28,5 @@ public class EnvioMapperImpl implements EnvioMapper {
         envioDTO.setPeso( envio.getPeso() );
 
         return envioDTO;
-    }
-
-    @Override
-    public Envio envioDTOToEnvio(EnvioDTO envioDTO) {
-        return null;
     }
 }

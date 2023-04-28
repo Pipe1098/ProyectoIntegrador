@@ -3,10 +3,7 @@ package com.example.Mensajeria.service;
 import com.example.Mensajeria.configurer.EnvioMapper;
 import com.example.Mensajeria.dto.EnvioDTO;
 import com.example.Mensajeria.exception.ApiRequestException;
-import com.example.Mensajeria.model.Cliente;
-import com.example.Mensajeria.model.Empleado;
-import com.example.Mensajeria.model.Envio;
-import com.example.Mensajeria.model.Paquete;
+import com.example.Mensajeria.model.*;
 import com.example.Mensajeria.repository.ClienteRepository;
 import com.example.Mensajeria.repository.EmpleadoRepository;
 import com.example.Mensajeria.repository.EnvioRepository;
@@ -63,14 +60,6 @@ public class EnvioService {
         return fechaAleatoria;
     }
 
-
-    public enum EstadoEnvio {
-        RECIBIDO,
-        EN_RUTA,
-        ENTREGADO
-    }
-
-
     public String generar(EnvioDTO envioDTO) {
 
         if (envioDTO.getCiudadDestino() == null ||
@@ -81,7 +70,7 @@ public class EnvioService {
         }
         Cliente newCliente = validarCliente(envioDTO.getCedula());
         Empleado newEmpleado = validarEmpleado(envioDTO.getCedulaEmpleado());
-        String tipoPaquete = asignarTipo(envioDTO.getPeso());
+        TipoPaquete tipoPaquete = asignarTipo(envioDTO.getPeso());
         String codigo = generarNumGuia();
         Double valorEnvio = ValorEnvio(tipoPaquete);
         LocalDateTime fecha = generarFechaAleatoria();
@@ -96,10 +85,10 @@ public class EnvioService {
         return newEnvio.toString();
     }
 
-    public Double ValorEnvio(String tipoPaquete) {
-        if (tipoPaquete.equalsIgnoreCase("LIVIANO")) {
+    public Double ValorEnvio(TipoPaquete tipoPaquete) {
+        if (tipoPaquete.equals("LIVIANO")) {
             return 30000.0;
-        } else if (tipoPaquete.equalsIgnoreCase("Mediano")) {
+        } else if (tipoPaquete.equals("Mediano")) {
             return 40000.0;
         } else {
             return 50000.0;
@@ -150,7 +139,7 @@ public class EnvioService {
             envio.setDirDestino(envioDTO.getDirDestino());
             envio.setNombreReceptor(envioDTO.getNombreReceptor());
             envio.setCelReceptor(envioDTO.getCelReceptor());
-            String tipoP = asignarTipo(envioDTO.getPeso());
+            TipoPaquete tipoP = asignarTipo(envioDTO.getPeso());
             Paquete paq = new Paquete(tipoP, envioDTO.getPeso(), envioDTO.getValorDeclarado());
             envio.setValorDeclarado(envioDTO.getValorDeclarado());
             envio.setPaquete(paq);
@@ -243,13 +232,13 @@ public class EnvioService {
         }
     }
 
-    private String asignarTipo(double peso) {
+    private TipoPaquete asignarTipo(double peso) {
         if (peso > 0.0 && peso <= 2.0) {
-            return "LIVIANO";
+            return TipoPaquete.LIVIANO;
         } else if (peso > 2.0 && peso <= 5.0) {
-            return "MEDIANO";
+            return TipoPaquete.MEDIANO;
         } else {
-            return "GRANDE";
+            return TipoPaquete.GRANDE;
         }
     }
 
