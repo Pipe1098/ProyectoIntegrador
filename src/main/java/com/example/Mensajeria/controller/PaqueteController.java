@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1")
 public class PaqueteController {
-/*
+
     private PaqueteService paqueteService;
 
 @Autowired
@@ -45,6 +45,6 @@ public class PaqueteController {
     @DeleteMapping("/paquete/{id}")
     public void deletePaqueteById(@PathVariable Long id) {
         paqueteService.deleteById(id);
-    }*/
+    }
 }
 
