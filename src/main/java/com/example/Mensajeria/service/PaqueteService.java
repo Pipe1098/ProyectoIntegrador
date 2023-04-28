@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class PaqueteService {
 
-  /*  private PaqueteRepository paqueteRepository;
+    private PaqueteRepository paqueteRepository;
 
     public PaqueteService() {
     }
@@ -65,6 +65,6 @@ public class PaqueteService {
             throw new EntityNotFoundException("Paquete no encontrado con ID: " + id);
         }
         paqueteRepository.deleteById(id);
-    }*/
+    
 }
 
