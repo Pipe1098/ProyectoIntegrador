@@ -1,4 +1,4 @@
-package com.example.Mensajeria.seguridad;
+package com.example.Mensajeria.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,10 +22,6 @@ public class BasicAuthConfiguration {
         return http
                 .httpBasic()
                 .and().authorizeHttpRequests()
-                //.anyRequest().permitAll()
-//                .requestMatchers("/demo").permitAll()
-//                .requestMatchers("/admin").hasRole("ADMIN")
-//                .requestMatchers("/dba").hasAnyRole("DBA", "ADMIN")
                 .antMatchers(HttpMethod.POST).hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")

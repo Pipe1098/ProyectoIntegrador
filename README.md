@@ -147,8 +147,9 @@ Content-Type: application/json
     "pesoPaquete": 0.5,
     "fechaEnvio": "2022-04-19T10:14:59.123Z",
     "estadoEnvio": "ENTREGADO"
-  }
-   ...
+  },
+  {"...":
+    "..."}
 ]
 ```
 ## 📂📦🔍Endpoint: GET/URL: http://localhost:8080/api/v1/envio/numGuia
@@ -213,7 +214,7 @@ Requiere la cedula del empleado y el estado al cual se quiere actualizar (por me
     "nombreReceptor": "Juan",
     "peso": 10,
     "valorDeclarado": 100,
-    "valorEnvio": 200
+    "valorEnvio": 200,
      "EestadoEnvio": "RECIBIDO"
   }
 ]
@@ -232,9 +233,9 @@ Envio eliminado correctamente.
 ![DiagramaER](https://user-images.githubusercontent.com/90018701/233802643-119f9502-6a7f-4d70-b739-e84115591aa1.png)
 
 ### Diagrama de clases (Cliente, Empleado, Envio):
-![mensajeria_clase_cliente drawio ](https://user-images.githubusercontent.com/90018701/234020175-33c436bf-d385-47bd-af7e-8e0ac93bab49.png)
-![mensajeria_clase_empleado drawio](https://user-images.githubusercontent.com/90018701/234016701-3dd55d37-e05b-4c2e-9de1-69b0e3c3af18.png)
-![mensajeria_clase_envio drawio](https://user-images.githubusercontent.com/90018701/234020245-9e512656-91e6-4743-902c-e03cc48b6098.png)
+![mensajeria_clase_cliente.drawio.png](diagrams/mensajeria_clase_cliente.drawio.png)
+![mensajeria_clase_empleado.drawio.png](diagrams/mensajeria_clase_empleado.drawio.png)
+![mensajeria_clase_envio.drawio.png](diagrams/mensajeria_clase_envio.drawio.png)
 
 
 

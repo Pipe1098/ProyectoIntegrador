@@ -8,11 +8,10 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name = "id")
 public class Cliente extends Usuario {
 
-    // Constructor vacío requerido por JPA
+
     public Cliente() {}
 
 
-    // Constructor con parámetros
     public Cliente(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, String cedula) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
 

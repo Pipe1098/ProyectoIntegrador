@@ -16,11 +16,8 @@ public class Empleado extends Usuario {
     private String tipoEmpleado;
 
 
-    // Constructor vacío requerido por JPA
     public Empleado() {}
 
-
-    // Constructor con parámetros
     public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, String cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
         this.antigueadadEnEmpresa = antigueadadEnEmpresa;
