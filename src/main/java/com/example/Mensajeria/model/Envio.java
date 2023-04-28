@@ -1,11 +1,7 @@
 package com.example.Mensajeria.model;
-import com.example.Mensajeria.service.EnvioService;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
