@@ -22,7 +22,11 @@ public class Envio {
     private String nombreReceptor;
     private String celReceptor;
     private LocalDateTime horaEntrega;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoEnvio estadoEnvio;
+
     private double valorDeclarado;
     private double peso;
     private double valorEnvio;

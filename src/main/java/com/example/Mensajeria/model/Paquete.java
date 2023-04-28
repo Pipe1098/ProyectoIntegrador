@@ -9,7 +9,7 @@ public class Paquete {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPaquete;
-
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoPaquete tipoPaquete;
 
@@ -20,10 +20,10 @@ public class Paquete {
     private double valorDeclarado;
 
 
-    // Constructor vacío requerido por JPA
+
     public Paquete() {}
 
-    // Constructor con parámetros
+
     public Paquete(TipoPaquete tipoPaquete, double peso, double valorDeclarado) {
         this.tipoPaquete = tipoPaquete;
         this.peso = peso;

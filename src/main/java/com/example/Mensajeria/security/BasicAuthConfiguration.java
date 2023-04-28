@@ -15,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class BasicAuthConfiguration {
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -27,7 +26,6 @@ public class BasicAuthConfiguration {
                 .antMatchers(HttpMethod.GET).authenticated()
                 .and().csrf().disable().build();
     }
-
 
     @Bean
     public UserDetailsService userDetailsService() {
