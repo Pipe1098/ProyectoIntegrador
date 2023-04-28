@@ -154,33 +154,6 @@ public class EnvioService {
         }
     }
 
-    public class ActualizarEstadoResponse {
-        private String numeroGuia;
-        private EstadoEnvio estado;
-
-        public ActualizarEstadoResponse(String numeroGuia, EstadoEnvio estado) {
-            this.numeroGuia = numeroGuia;
-            this.estado = estado;
-        }
-
-        public String getNumeroGuia() {
-            return numeroGuia;
-        }
-
-        public void setNumeroGuia(String numeroGuia) {
-            this.numeroGuia = numeroGuia;
-        }
-
-        public EstadoEnvio getEstado() {
-            return estado;
-        }
-
-        public void setEstado(EstadoEnvio estado) {
-            this.estado = estado;
-        }
-    }
-
-
     public ActualizarEstadoResponse actualizarEstado(String numGuia, String cedulaEmpleado, String estado) {
         String estadoUpper = estado.toUpperCase();
         Empleado empleado = empleadoRepository.findByCedula(cedulaEmpleado)

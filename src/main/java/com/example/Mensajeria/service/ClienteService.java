@@ -59,17 +59,20 @@ public class ClienteService {
     }
 
     public List<ClienteDTO> crearClientes() {
-        this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409"));
-        this.clienteRepository.save(new Cliente("Andres", "Montoya", "3014589442", "example@hotmail.com", "CR 80-20", "Pereira", "1234567895"));
-        return clienteRepository.findAll().
-                stream()
-                .map(cliente -> new ClienteDTO(
-                        cliente.getNombre(),
-                        cliente.getApellido(),
-                        cliente.getCelular(),
-                        cliente.getCorreo(),
-                        cliente.getCedula(), cliente.getCiudad(), cliente.getDireccion()))
-                .collect(Collectors.toList());
+        if(clienteRepository.findAll().isEmpty()) {
+            this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409"));
+            this.clienteRepository.save(new Cliente("Andres", "Montoya", "3014589442", "example@hotmail.com", "CR 80-20", "Pereira", "1234567895"));
+            return clienteRepository.findAll().
+                    stream()
+                    .map(cliente -> new ClienteDTO(
+                            cliente.getNombre(),
+                            cliente.getApellido(),
+                            cliente.getCelular(),
+                            cliente.getCorreo(),
+                            cliente.getCedula(), cliente.getCiudad(), cliente.getDireccion()))
+                    .collect(Collectors.toList());
+        }
+        throw new ApiRequestException("Ya hay clientes disponibles para probar la api");
     }
 
     public List<ClienteDTO> obtenerTodosLosClientes() {
@@ -103,6 +106,8 @@ public class ClienteService {
         if (optionalCliente.isPresent()) {
             Cliente cliente = optionalCliente.get();
             cliente.setNombre(clienteDTO.getNombre());
+            cliente.setDireccion(clienteDTO.getDireccion());
+            cliente.setCiudad(clienteDTO.getCiudad());
             cliente.setApellido(clienteDTO.getApellido());
             cliente.setCelular(clienteDTO.getCelular());
             cliente.setCorreo(clienteDTO.getCorreo());

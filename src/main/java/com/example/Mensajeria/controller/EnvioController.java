@@ -2,9 +2,10 @@ package com.example.Mensajeria.controller;
 
 import com.example.Mensajeria.configurer.EnvioMapper;
 import com.example.Mensajeria.dto.EnvioDTO;
-import com.example.Mensajeria.model.ActualizarEstadoRequest;
+import com.example.Mensajeria.service.ActualizarEstadoRequest;
 import com.example.Mensajeria.model.Envio;
 import com.example.Mensajeria.model.EstadoEnvio;
+import com.example.Mensajeria.service.ActualizarEstadoResponse;
 import com.example.Mensajeria.service.EnvioService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -61,11 +62,11 @@ public class EnvioController {
         return envioService.actualizarEnvio(id, envioDTO);
     }
 
-    @ApiOperation(value = "Actualizar estado", notes = "Permite actualizar de un estado a otro (entregado, en_ruta o recibido).", response = EnvioService.ActualizarEstadoResponse.class)
+    @ApiOperation(value = "Actualizar estado", notes = "Permite actualizar de un estado a otro (entregado, en_ruta o recibido).", response = ActualizarEstadoResponse.class)
     @PutMapping("/envio/estado")
-    public ResponseEntity<EnvioService.ActualizarEstadoResponse> actualizarEstado(
+    public ResponseEntity<ActualizarEstadoResponse> actualizarEstado(
             @RequestBody ActualizarEstadoRequest request) {
-        EnvioService.ActualizarEstadoResponse resultado = envioService.actualizarEstado(
+                   ActualizarEstadoResponse resultado = envioService.actualizarEstado(
                 request.getNumGuia(),
                 request.getCedulaEmpleado(),
                 request.getEstado());

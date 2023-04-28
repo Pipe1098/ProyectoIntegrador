@@ -1,6 +1,5 @@
-package com.example.Mensajeria.model;
+package com.example.Mensajeria.service;
 
-import com.example.Mensajeria.service.EnvioService;
 
 public class ActualizarEstadoRequest {
     private String numGuia;
