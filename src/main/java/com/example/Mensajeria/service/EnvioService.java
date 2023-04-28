@@ -1,6 +1,6 @@
 package com.example.Mensajeria.service;
 
-import com.example.Mensajeria.configurer.EnvioMapper;
+import com.example.Mensajeria.mappers.EnvioMapper;
 import com.example.Mensajeria.dto.EnvioDTO;
 import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.*;

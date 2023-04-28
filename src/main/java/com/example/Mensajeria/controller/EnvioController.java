@@ -1,6 +1,6 @@
 package com.example.Mensajeria.controller;
 
-import com.example.Mensajeria.configurer.EnvioMapper;
+import com.example.Mensajeria.mappers.EnvioMapper;
 import com.example.Mensajeria.dto.EnvioDTO;
 import com.example.Mensajeria.service.ActualizarEstadoRequest;
 import com.example.Mensajeria.model.Envio;

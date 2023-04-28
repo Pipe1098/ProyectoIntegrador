@@ -1,7 +1,7 @@
 package com.example.Mensajeria.service;
 
 
-import com.example.Mensajeria.configurer.PaqueteMapper;
+import com.example.Mensajeria.mappers.PaqueteMapper;
 import com.example.Mensajeria.dto.PaqueteDTO;
 import com.example.Mensajeria.model.Paquete;
 import com.example.Mensajeria.repository.PaqueteRepository;
