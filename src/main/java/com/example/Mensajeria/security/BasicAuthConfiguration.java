@@ -1,5 +1,6 @@
 package com.example.Mensajeria.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class BasicAuthConfiguration {
 
+    @Value("${usuario}")
+    private String userName;
+
+    @Value("${password}")
+    private String password;
+
+    @Value("${admin}")
+    private String adminName;
+
+    @Value("${password2}")
+    private String adminPassword;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -26,16 +38,15 @@ public class BasicAuthConfiguration {
                 .antMatchers(HttpMethod.GET).authenticated()
                 .and().csrf().disable().build();
     }
-
     @Bean
     public UserDetailsService userDetailsService() {
         return new InMemoryUserDetailsManager(
-                User.withUsername("user")
-                        .password(passwordEncoder().encode("user123"))
+                User.withUsername(userName)
+                        .password(passwordEncoder().encode(password))
                         .authorities("read","ROLE_USER")
                         .build(),
-                User.withUsername("admin")
-                        .password(passwordEncoder().encode("admin123"))
+                User.withUsername(adminName)
+                        .password(passwordEncoder().encode(adminPassword))
                         .authorities("read", "write", "ROLE_ADMIN")
                         .build(),
                 User.withUsername("dba")
@@ -44,7 +55,6 @@ public class BasicAuthConfiguration {
                         .build()
         );
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

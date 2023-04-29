@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 import java.util.List;
 
 @RestController
@@ -42,6 +43,7 @@ public class PaqueteController {
         return paqueteService.encontrarPorId(id);
     }
 
+    @ApiIgnore
     @ApiOperation(value = "Crear un paquete", notes = "Permite registrar un nuevo paquete en la base de datos.", response = PaqueteDTO.class)
     @PostMapping("/paquete")
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,11 +51,13 @@ public class PaqueteController {
         return paqueteService.crear(paquete);
     }
 
+    @ApiIgnore
     @ApiOperation(value = "Actulizar paquete", notes = "Permite actualizar los datos de un paquete previamente creado.", response = PaqueteDTO.class)
     @PutMapping("/paquete/{id}")
     public PaqueteDTO actualizarPaquete(@PathVariable Long id, @RequestBody PaqueteDTO paqueteDTO) {
         return paqueteService.actualizarPaquete(id, paqueteDTO);
     }
+    @ApiIgnore
     @ApiOperation(value = "Eliminar paquete", notes = "Elimina un paquete de la base de datos.", response = String.class)
     @DeleteMapping("/paquete/{id}")
     public String eliminarPaquetePorId(@PathVariable Long id) {
