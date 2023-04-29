@@ -3,6 +3,7 @@ package com.example.usuarios;
 import com.example.Mensajeria.dto.EmpleadoDTO;;
 import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.model.Empleado;
+import com.example.Mensajeria.model.TipoEmpleado;
 import com.example.Mensajeria.repository.EmpleadoRepository;
 import com.example.Mensajeria.service.EmpleadoService;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +32,7 @@ public class EmpleadoServiceTest {
 
         // Act
         Empleado empleado = new Empleado("Juan", "Perez", "3002568974",
-                "juan@example.com", "Calle 123", "Medellin", "123",2,"o+","REPARTIDOR");
+                "juan@example.com", "Calle 123", "Medellin", "123",2,"o+",TipoEmpleado.REPARTIDOR);
         //Assert
         Assertions.assertThrows(ApiRequestException.class, () -> {
             empleadoService.validarEmpleado(empleado);
@@ -44,7 +45,7 @@ public class EmpleadoServiceTest {
         setUp();
         // Act
         Empleado empleado = new Empleado(null, "Perez", "3002568974",
-                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+","REPARTIDOR");
+                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+",TipoEmpleado.REPARTIDOR);
         // Assert
         Assertions.assertThrows(ApiRequestException.class, () -> {
             empleadoService.validarEmpleado(empleado);
@@ -57,7 +58,7 @@ public class EmpleadoServiceTest {
         setUp();
         // Act
         Empleado empleado = new Empleado("", "Perez", "3002568974",
-                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+","REPARTIDOR");
+                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+",TipoEmpleado.REPARTIDOR);
         // Assert
         Assertions.assertThrows(ApiRequestException.class, () -> {
             empleadoService.validarEmpleado(empleado);
@@ -71,7 +72,7 @@ public class EmpleadoServiceTest {
         EmpleadoService empleadoService = new EmpleadoService();
         // Act
         Empleado empleado = new Empleado("Pepe", null ,"3002568974",
-                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+","REPARTIDOR");
+                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+",TipoEmpleado.REPARTIDOR);
         // Assert
         Assertions.assertThrows(ApiRequestException.class, () -> {
             empleadoService.validarEmpleado(empleado);
@@ -83,7 +84,7 @@ public class EmpleadoServiceTest {
         // Arrange
         setUp();
         Empleado empleado = new Empleado("Pepe", "Gomez" ,"3002568974",
-                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+","REPARTIDOR");
+                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+",TipoEmpleado.REPARTIDOR);
         // Act & Assert
         assertTrue(empleadoService.validarEmpleado(empleado));
 
@@ -94,7 +95,7 @@ public class EmpleadoServiceTest {
         //Arrange
         setUp();
         Empleado empleado = new Empleado("Pepe", "Lopez","3002568974",
-                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+","REPARTIDOR");
+                "juan@example.com", "Calle 123", "Medellin", "1236547852",2,"o+", TipoEmpleado.REPARTIDOR);
         EmpleadoDTO empleadoDTO = new EmpleadoDTO( empleado.getCedula(),
                 empleado.getApellido(),
                 empleado.getNombre(),

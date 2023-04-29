@@ -12,13 +12,14 @@ public class Empleado extends Usuario {
     @Column(nullable = false)
     private String rh;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String tipoEmpleado;
+    private TipoEmpleado tipoEmpleado;
 
 
     public Empleado() {}
 
-    public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, String cedula, int antigueadadEnEmpresa, String rh, String tipoEmpleado) {
+    public Empleado(String nombre, String apellido, String celular, String correo, String direccion, String ciudad, String cedula, int antigueadadEnEmpresa, String rh, TipoEmpleado tipoEmpleado) {
         super(nombre, apellido, celular, correo, direccion, ciudad, cedula);
         this.antigueadadEnEmpresa = antigueadadEnEmpresa;
         this.rh = rh;
@@ -41,11 +42,11 @@ public class Empleado extends Usuario {
         this.rh = rh;
     }
 
-    public String getTipoEmpleado() {
+    public TipoEmpleado getTipoEmpleado() {
         return tipoEmpleado;
     }
 
-    public void setTipoEmpleado(String tipoEmpleado) {
+    public void setTipoEmpleado(TipoEmpleado tipoEmpleado) {
         this.tipoEmpleado = tipoEmpleado;
     }
 

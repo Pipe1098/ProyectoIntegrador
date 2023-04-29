@@ -45,7 +45,6 @@ public class BasicAuthConfiguration {
         );
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

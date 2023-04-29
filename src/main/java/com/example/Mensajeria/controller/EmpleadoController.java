@@ -41,7 +41,6 @@ public class EmpleadoController {
             throw new ApiRequestException("Empleado con cedula: " + cedula + " no encontrado en el sistema");
         }
     }
-
     @ApiOperation(value = "Crear empleado", notes = "Permite registar un nuevo empleado en la base de datos", response = EmpleadoDTO.class)
     @PostMapping("/empleado")
     public ResponseEntity<EmpleadoDTO> crearEmpleado(@RequestBody Empleado empleado) {
@@ -72,7 +71,6 @@ public class EmpleadoController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @ApiOperation(value = "Eliminar empleado", notes = "Permite eliminar un empleado de la base de datos por medio de su cedula.", response = String.class)
     @DeleteMapping("empleado/{cedula}")
     public String eliminarEmpleado(@ApiParam(value = "Digite la cedula del empleado que necesita eliminar", required = true) @PathVariable("cedula") String cedula) {

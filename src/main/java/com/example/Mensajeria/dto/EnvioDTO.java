@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnvioDTO {
-//
-    //private ClienteDTO clienteDTO;
+
+
     private String cedula;
     private String cedulaEmpleado;
     private String ciudadOrigen;

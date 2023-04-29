@@ -1,6 +1,5 @@
 package com.example.Mensajeria.controller;
 
-import com.example.Mensajeria.dto.ClienteDTO;
 import com.example.Mensajeria.dto.PaqueteDTO;
 import com.example.Mensajeria.model.Paquete;
 import com.example.Mensajeria.service.PaqueteService;
@@ -10,7 +9,6 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

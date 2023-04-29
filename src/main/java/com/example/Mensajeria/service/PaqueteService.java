@@ -1,6 +1,7 @@
 package com.example.Mensajeria.service;
 
 
+import com.example.Mensajeria.exception.ApiRequestException;
 import com.example.Mensajeria.mappers.PaqueteMapper;
 import com.example.Mensajeria.dto.PaqueteDTO;
 import com.example.Mensajeria.model.Paquete;
@@ -53,15 +54,16 @@ public class PaqueteService {
                 .orElseThrow(() -> new EntityNotFoundException("Paquete no encontrado con ID: " + id));
         paquete.setValorDeclarado(paqueteDTO.getValorDeclarado());
         paquete.setPeso(paqueteDTO.getPeso());
+        paquete.setTipoPaquete(paqueteDTO.getTipoPaquete());
         paquete = paqueteRepository.save(paquete);
         return PaqueteMapper.INSTANCE.paqueteToPaqueteDTO(paquete);
     }
 
     public String eliminarPorId(Long id) {
         if (!paqueteRepository.existsById(id)) {
-            throw new EntityNotFoundException("Paquete no encontrado con ID: " + id);
+            throw new ApiRequestException("Paquete no encontrado con ID: " + id);
         }
-        String msg = "Paquete eliminado con exito";
+        String msg = "Paquete eliminado con exito.";
         paqueteRepository.deleteById(id);
         return msg;
 

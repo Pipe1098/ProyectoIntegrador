@@ -49,7 +49,7 @@ public class EnvioServiceTest {
 
         // Act
         Cliente cliente = new Cliente("John", "Doe", "123456789", "johndoe@example.com", "Calle 123", "Bogotá", "1234567890");
-        Empleado empleado = new Empleado("Jane", "Doe", "987654321", "janedoe@example.com", "Carrera 456", "Medellín", "1987654321", 2, "O-", "REPARTIDOR");
+        Empleado empleado = new Empleado("Jane", "Doe", "987654321", "janedoe@example.com", "Carrera 456", "Medellín", "1987654321", 2, "O-", TipoEmpleado.REPARTIDOR);
         Paquete paquete = new Paquete(TipoPaquete.LIVIANO, 5.0, 100000.0);
         EnvioDTO enviodto = new EnvioDTO(cliente.getCedula(), empleado.getCedula(), "Bogotá", "Medellín", "Carrera 789", "Juan Pérez", "321654987", paquete.getValorDeclarado(), paquete.getPeso());
         Envio envio = new Envio("abcd369852", cliente, "1234567890", "med", "cali", "cr30", "luis",

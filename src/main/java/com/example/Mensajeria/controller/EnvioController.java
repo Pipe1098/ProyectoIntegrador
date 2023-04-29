@@ -1,6 +1,5 @@
 package com.example.Mensajeria.controller;
 
-import com.example.Mensajeria.mappers.EnvioMapper;
 import com.example.Mensajeria.dto.EnvioDTO;
 import com.example.Mensajeria.service.ActualizarEstadoRequest;
 import com.example.Mensajeria.model.Envio;
@@ -43,10 +42,10 @@ public class EnvioController {
 
     @ApiOperation(value = "Obtener envio por su numero de guia", notes = "Permite obtener un envio especifico de la base de datos por medio de su id (numGuia).", response = EnvioDTO.class)
     @PostMapping("/envio/numGuia")
-    public EnvioDTO encontrarPorId(@RequestBody Map<String, String> request) {
+    public Envio encontrarPorId(@RequestBody Map<String, String> request) {
         String numeroGuia = request.get("numeroGuia");
         Envio envio = envioService.encontrarEnvioPorId(numeroGuia);
-        return EnvioMapper.INSTANCE.envioToEnvioDTO(envio);
+        return envio;
     }
 
     @ApiOperation(value = "Crear envio", notes = "Permite crear un nuevo envio con los datos proporcionados en el cuerpo de la solicitud.", response = EnvioDTO.class)
@@ -84,7 +83,6 @@ public class EnvioController {
 
     @ApiOperation(value = "Eliminar envio", notes = "Permite eliminar envios de la base de datos por medio de su numero de guia", response = String.class)
     @DeleteMapping("/envio/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public String eliminarPorId(@ApiParam(value = "Digite el numGuia del envio que desea eliminar", required = true) @PathVariable String id) {
         return envioService.eliminarPorId(id);
     }

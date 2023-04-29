@@ -41,4 +41,8 @@ public class PaqueteDTO {
     public TipoPaquete getTipoPaquete() {
         return this.tipoPaquete;
     }
+
+    public void setTipoPaquete(TipoPaquete tipoPaquete) {
+        this.tipoPaquete = tipoPaquete;
+    }
 }

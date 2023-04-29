@@ -56,7 +56,7 @@ public class ClienteService {
     }
 
     public List<ClienteDTO> crearClientes() {
-        if(clienteRepository.findAll().isEmpty()) {
+        if(!clienteRepository.findByCedula("4558589409").isPresent()) {
             this.clienteRepository.save(new Cliente("Carlos", "Perez", "3001458964", "Carlos@hotmail.com", "CR 50-30", "Medellin", "4558589409"));
             this.clienteRepository.save(new Cliente("Andres", "Montoya", "3014589442", "example@hotmail.com", "CR 80-20", "Pereira", "1234567895"));
             return clienteRepository.findAll().
@@ -69,7 +69,7 @@ public class ClienteService {
                             cliente.getCedula(), cliente.getCiudad(), cliente.getDireccion()))
                     .collect(Collectors.toList());
         }
-        throw new ApiRequestException("Ya hay clientes disponibles para probar la api");
+        throw new ApiRequestException("Ya se han creado los clientes para probar la api");
     }
 
     public List<ClienteDTO> obtenerTodosLosClientes() {

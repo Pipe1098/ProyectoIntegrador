@@ -1,6 +1,8 @@
 package com.example.Mensajeria.dto;
 
 
+import com.example.Mensajeria.model.TipoEmpleado;
+
 public class EmpleadoDTO {
 
     private String cedula;
@@ -8,10 +10,10 @@ public class EmpleadoDTO {
     private String nombre;
     private String correoElectronico;
     private String celular;
-    private String tipoEmpleado;
+    private TipoEmpleado tipoEmpleado;
     private int antiguedadEnEmpresa;
 
-    public EmpleadoDTO(String cedula, String apellido, String nombre, String correoElectronico, String celular, String tipoEmpleado, int antiguedadEnEmpresa) {
+    public EmpleadoDTO(String cedula, String apellido, String nombre, String correoElectronico, String celular, TipoEmpleado tipoEmpleado, int antiguedadEnEmpresa) {
         this.cedula = cedula;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -23,7 +25,6 @@ public class EmpleadoDTO {
 
     public EmpleadoDTO() {
     }
-
     public String getCedula() {
         return cedula;
     }
@@ -44,9 +45,7 @@ public class EmpleadoDTO {
         return celular;
     }
 
-
-
-    public String getTipoEmpleado() {
+    public TipoEmpleado getTipoEmpleado() {
         return tipoEmpleado;
     }
 

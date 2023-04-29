@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 @RestController
@@ -38,12 +36,13 @@ public class ClienteController {
 
     @ApiOperation(value = "Crear un cliente", notes = "Crea un nuevo cliente en la base de datos con la información proporcionada en el cuerpo de la solicitud.", response = ClienteDTO.class)
     @PostMapping("/cliente")
-    public ClienteDTO crear(@RequestBody ClienteDTO clientedto) {
-        return this.clienteService.crear(clientedto);
+    public ResponseEntity<ClienteDTO> crear(@RequestBody ClienteDTO clientedto) {
+               ClienteDTO cDTO=clienteService.crear(clientedto);
+        return  new ResponseEntity("Se registro el cliente de manera exitosa.",HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Crear clientes", notes = "Crea  una lista de clientes por defecto para probar la API.", response = Cliente.class)
-    //@PreAuthorize("hasRole('READ')")
+
     @PostMapping("/clientes")
     public ResponseEntity<Cliente> crearClientes() {
         this.clienteService.crearClientes();
@@ -62,7 +61,7 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> actualizarCliente(@ApiParam(value = "Digite la cedula del cliente que necesita actualizar.", required = true) @PathVariable String cedula, @RequestBody ClienteDTO clienteDTO) {
         ClienteDTO clienteActualizado = clienteService.actualizarCliente(cedula, clienteDTO);
         if (clienteActualizado != null) {
-            return ResponseEntity.ok(clienteActualizado);
+            return new ResponseEntity<>(clienteActualizado,HttpStatus.ACCEPTED);
         } else {
             return ResponseEntity.notFound().build();
         }
