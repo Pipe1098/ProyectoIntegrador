@@ -229,8 +229,7 @@ Envio eliminado correctamente.
 ### Diagrama de flujo:
 ![Diagrama_Flujo.drawio.png](diagrams%2FDiagrama_Flujo.drawio.png)
 ### Diagrama UML:
-![Diagrama-UML](https://user-images.githubusercontent.com/90018701/233802663-c62b1d7c-366f-4c7f-bd06-fb7dda502c80.png)
-
+![Diagrama-UML.drawio.png](diagrams%2FDiagrama-UML.drawio.png)
 ### Diagrama de entidad relacion:
 ![DiagramaER](https://user-images.githubusercontent.com/90018701/233802643-119f9502-6a7f-4d70-b739-e84115591aa1.png)
 
