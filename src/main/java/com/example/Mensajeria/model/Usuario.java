@@ -1,10 +1,10 @@
 package com.example.Mensajeria.model;
 import javax.persistence.*;
 
-@Entity
+
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
