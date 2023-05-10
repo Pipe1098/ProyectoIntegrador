@@ -2,13 +2,14 @@
 Esta API proporciona funcionalidades para gestionar envíos de paquetes de una empresa de mensajeria. Desarrollado en Java usando SpringBoot, JPA, Swagger, Spring Security, MySQL, Hibernate, insomnia, entre otras tecnologias 🐬🔬📱. Este proyecto cuenta con integración continua (CI) utilizando GitHub Actions para la ejecución automática de pruebas y validaciones de calidad de código 🔧💻. Además, se ha implementado una integración continua y entrega continua (CI/CD) con Railway para el despliegue automatizado de la aplicación en un servidor cloud. De esta manera, se asegura una entrega rápida y confiable de nuevas versiones de la API🔒.
 
 ## Instalación 🚀
-
 1. Clonar el repositorio: `git clone https://github.com/Pipe1098/ProyectoIntegrador.git`
 2. Abra el proyecto con su IDE preferido (Eclipse, IntelliJ, etc.).
 3. Configure el archivo application.properties en la ruta src/main/resources para conectarse a la base de datos H2 en memoria. Puede dejar la configuración por defecto o cambiarla según sus necesidades.
 4. Ejecute el comando gradle build para descargar las dependencias del proyecto y compilarlo.
 5. Ejecute el comando gradle bootRun para iniciar la aplicación.
 
+### Diagrama de flujo:
+![Diagrama_Flujo.drawio.png](diagrams%2FDiagrama_Flujo.drawio.png)
 ## Despliegue 🛫💻
 ### Pudes probar la API mediante el siguiente link: 
 - [https://api-MensaeriaExpress.co](https://proyectointegrador-production-9aac.up.railway.app/swagger-ui/index.html#/)
@@ -226,8 +227,6 @@ Requiere la cedula del empleado y el estado al cual se quiere actualizar (por me
 Envio eliminado correctamente.
 
 ## 📊📈 Diagramas:
-### Diagrama de flujo:
-![Diagrama_Flujo.drawio.png](diagrams%2FDiagrama_Flujo.drawio.png)
 ### Diagrama UML:
 ![Diagrama-UML.drawio.png](diagrams%2FDiagrama-UML.drawio.png)
 ### Diagrama de entidad relacion:
