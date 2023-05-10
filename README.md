@@ -9,6 +9,9 @@ Esta API proporciona funcionalidades para gestionar envíos de paquetes de una e
 4. Ejecute el comando gradle build para descargar las dependencias del proyecto y compilarlo.
 5. Ejecute el comando gradle bootRun para iniciar la aplicación.
 
+### Diagrama de flujo:
+![Diagrama_Flujo.drawio.png](diagrams%2FDiagrama_Flujo.drawio.png)
+
 ## Despliegue 🛫💻
 ### Pudes probar la API mediante el siguiente link: 
 - [https://api-MensaeriaExpress.co](https://proyectointegrador-production-9aac.up.railway.app/swagger-ui/index.html#/)
@@ -226,8 +229,6 @@ Requiere la cedula del empleado y el estado al cual se quiere actualizar (por me
 Envio eliminado correctamente.
 
 ## 📊📈 Diagramas:
-### Diagrama de flujo:
-![Diagrama_Flujo.drawio.png](diagrams%2FDiagrama_Flujo.drawio.png)
 ### Diagrama UML:
 ![Diagrama-UML.drawio.png](diagrams%2FDiagrama-UML.drawio.png)
 ### Diagrama de entidad relacion:
