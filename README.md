@@ -12,7 +12,7 @@ Esta API proporciona funcionalidades para gestionar envíos de paquetes de una e
 ![Diagrama_Flujo.drawio.png](diagrams%2FDiagrama_Flujo.drawio.png)
 ## Despliegue 🛫💻
 ### Pudes probar la API mediante el siguiente link: 
-- [https://api-MensaeriaExpress.co](https://proyectointegrador-production-9aac.up.railway.app/swagger-ui/index.html#/)
+- [https://api-MensaeriaExpress.co](https://proyectointegrador-production-b07e.up.railway.app/swagger-ui/index.html#/)
 
 ### Usando los siguientes datos de autenticación:
 - Perfil 1: solo lectura (peticiones GET)
