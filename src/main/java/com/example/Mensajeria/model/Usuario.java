@@ -1,6 +1,6 @@
 package com.example.Mensajeria.model;
 import javax.persistence.*;
-//comit
+
 @Entity
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.JOINED)
